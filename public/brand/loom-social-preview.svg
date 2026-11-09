@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
-  <title id="title">Loom — live agent swarm orchestration</title>
-  <desc id="desc">A dark neon product preview with the Loom logo and a connected agent graph.</desc>
+  <title id="title">HiveGraph — live agent swarm orchestration</title>
+  <desc id="desc">A dark neon product preview with the HiveGraph logo and a connected agent graph.</desc>
   <defs>
     <radialGradient id="violet" cx="0" cy="0" r="1" gradientTransform="translate(250 160) rotate(35) scale(650 420)" gradientUnits="userSpaceOnUse">
       <stop stop-color="#5b3cae" stop-opacity=".42"/><stop offset="1" stop-color="#08070d" stop-opacity="0"/>
@@ -17,12 +17,11 @@
   <g transform="translate(86 86)">
     <rect x="2" y="2" width="92" height="92" rx="24" fill="#12101f"/>
     <rect x="2.5" y="2.5" width="91" height="91" rx="23.5" fill="none" stroke="#a78bfa" stroke-opacity=".45"/>
-    <path d="M18 67 32 29l16 38 16-38 14 38" fill="none" stroke="#a78bfa" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
-    <circle cx="18" cy="67" r="4.5" fill="#67e8f9"/><circle cx="32" cy="29" r="4.5" fill="#c4b5fd"/>
-    <circle cx="48" cy="67" r="4.5" fill="#67e8f9"/><circle cx="64" cy="29" r="4.5" fill="#c4b5fd"/>
-    <circle cx="78" cy="67" r="4.5" fill="#67e8f9"/>
+    <path d="M48.0 18.0 73.98 33.0 73.98 63.0 48.0 78.0 22.02 63.0 22.02 33.0Z" fill="none" stroke="#a78bfa" stroke-linejoin="round" stroke-width="6"/>
+    <path d="M48 48L48.0 18.0M48 48L73.98 63.0M48 48L22.02 63.0" fill="none" stroke="#a78bfa" stroke-opacity=".7" stroke-linecap="round" stroke-width="4"/>
+    <circle cx="48.0" cy="18.0" r="4.2" fill="#c4b5fd"/><circle cx="73.98" cy="33.0" r="4.2" fill="#67e8f9"/><circle cx="73.98" cy="63.0" r="4.2" fill="#c4b5fd"/><circle cx="48.0" cy="78.0" r="4.2" fill="#67e8f9"/><circle cx="22.02" cy="63.0" r="4.2" fill="#c4b5fd"/><circle cx="22.02" cy="33.0" r="4.2" fill="#67e8f9"/><circle cx="48" cy="48" r="5.25" fill="#f4f1ff"/>
   </g>
-  <text x="86" y="256" fill="#f6f3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="86" font-weight="740" letter-spacing="-3">Loom</text>
+  <text x="86" y="256" fill="#f6f3ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="86" font-weight="740" letter-spacing="-3">HiveGraph</text>
   <text x="90" y="320" fill="#c8c2db" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="30">One goal. A live, validated agent swarm.</text>
   <g transform="translate(90 375)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="19">
     <rect width="176" height="44" rx="22" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-opacity=".35"/>

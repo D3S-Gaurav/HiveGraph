@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="public/brand/loom-logo.svg" width="360" alt="Loom" />
+  <img src="public/brand/loom-logo.svg" width="360" alt="HiveGraph" />
 </p>
 
-<h1 align="center">Loom</h1>
+<h1 align="center">HiveGraph</h1>
 
 <p align="center"><strong>Turn one complex goal into a live, durable, validated agent swarm.</strong></p>
 <p align="center">
@@ -10,18 +10,18 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/D3S-Gaurav/Loom/actions/workflows/ci.yml"><img src="https://github.com/D3S-Gaurav/Loom/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml"><img src="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Contributions welcome" /></a>
 </p>
 
 ---
 
-## 🧬 What is Loom?
+## 🧬 What is HiveGraph?
 
-**Loom** is a production-oriented orchestration workspace that decomposes a single complex goal into a **Directed Acyclic Graph (DAG)** of specialized agent tasks. A planner creates the task graph, workers execute ready tasks in parallel, a mode-aware validator can request focused revisions, and a synthesizer produces the final answer — all while **React Flow** renders every event in real time.
+**HiveGraph** is a production-oriented orchestration workspace that decomposes a single complex goal into a **Directed Acyclic Graph (DAG)** of specialized agent tasks. A planner creates the task graph, workers execute ready tasks in parallel, a mode-aware validator can request focused revisions, and a synthesizer produces the final answer — all while **React Flow** renders every event in real time.
 
-It's not just a demo. Loom pairs a focused product experience with **production-grade identity, billing, durable workflows, streaming state, distributed infrastructure, and observability**.
+It's not just a demo. HiveGraph pairs a focused product experience with **production-grade identity, billing, durable workflows, streaming state, distributed infrastructure, and observability**.
 
 ---
 
@@ -79,7 +79,7 @@ Codex / Claude Code ──bearer token──▶ /api/mcp
 
 ## 🎛️ Execution Modes
 
-Loom provides three execution modes that control DAG size, validation depth, and token budgets:
+HiveGraph provides three execution modes that control DAG size, validation depth, and token budgets:
 
 | Mode | DAG Size | Revision Budget | Repeated-Context Policy | Best Fit |
 |---|---:|---:|---|---|
@@ -107,7 +107,7 @@ Loom provides three execution modes that control DAG size, validation depth, and
 ## 🛡️ Security Boundaries
 
 - **Text files** are type-checked and size-bounded before becoming untrusted planner context.
-- **GitHub attachments** accept only exact public `https://github.com/owner/repository` URLs. Loom constructs the `api.github.com` request itself — no user-controlled host fetching.
+- **GitHub attachments** accept only exact public `https://github.com/owner/repository` URLs. HiveGraph constructs the `api.github.com` request itself — no user-controlled host fetching.
 - **Image attachments** are validated, stored with Cloudinary's `authenticated` delivery type, and described by a vision model told to treat visible instructions as data.
 - **Raw base64 image data** is never written to Redis run state, Kafka events, or Temporal input. Only the derived text description enters orchestration.
 
