@@ -1,5 +1,5 @@
 {
-  "name": "loom",
+  "name": "hivegraph",
   "version": "0.1.0",
   "description": "Turn one complex goal into a live, durable, validated agent swarm: plan, delegate, execute, validate, synthesize.",
   "private": true,
@@ -22,7 +22,7 @@
     "infra:reset": "docker-compose down -v",
     "infra:logs": "docker-compose logs -f kafka redis postgres temporal telemetry",
     "infra:ps": "docker-compose ps",
-    "infra:topic": "docker-compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic loom.swarm.events",
+    "infra:topic": "docker-compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic hivegraph.swarm.events",
     "infra:full": "docker-compose --profile app up -d --build --wait"
   },
   "dependencies": {
@@ -67,6 +67,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/D3S-Gaurav/Loom.git"
+    "url": "git+https://github.com/D3S-Gaurav/HiveGraph.git"
   }
 }

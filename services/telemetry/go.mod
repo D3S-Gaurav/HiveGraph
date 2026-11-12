@@ -1,4 +1,4 @@
-module github.com/D3S-Gaurav/Loom/services/telemetry
+module github.com/D3S-Gaurav/HiveGraph/services/telemetry
 
 go 1.26.0
 

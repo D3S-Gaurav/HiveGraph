@@ -6,7 +6,7 @@ import { enforceRateLimit, MODEL_RATE_LIMIT, rateLimitKey, RateLimitError } from
 
 // Per-attempt wall-clock budget. A model that accepts the request but never returns
 // (common on congested free tiers) is aborted so the executor falls through.
-const TIMEOUT_MS = Number(process.env.LOOM_ATTEMPT_TIMEOUT_MS ?? 40000);
+const TIMEOUT_MS = Number(process.env.HIVEGRAPH_ATTEMPT_TIMEOUT_MS ?? 40000);
 
 // Treat rate-limit (429), payment-required (402, i.e. paid model on a free key),
 // timeout (408), and 5xx as "try the next model in the chain". Anything else

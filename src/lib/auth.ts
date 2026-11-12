@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { database } from "./database";
 
 export const auth = betterAuth({
-  appName: "Loom",
+  appName: "HiveGraph",
   database,
   baseURL: process.env.BETTER_AUTH_URL,
   secret: process.env.BETTER_AUTH_SECRET,

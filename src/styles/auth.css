@@ -1,4 +1,4 @@
-.loom-auth-page {
+.hivegraph-auth-page {
   display: grid;
   width: min(100%, 1500px);
   min-height: 100svh;
@@ -6,7 +6,7 @@
   grid-template-columns: minmax(0, 1.18fr) minmax(420px, 0.82fr);
 }
 
-.loom-auth-showcase {
+.hivegraph-auth-showcase {
   position: relative;
   display: flex;
   min-width: 0;
@@ -17,12 +17,12 @@
   isolation: isolate;
 }
 
-.loom-auth-showcase > :not(.loom-auth-video) {
+.hivegraph-auth-showcase > :not(.hivegraph-auth-video) {
   position: relative;
   z-index: 1;
 }
 
-.loom-auth-video {
+.hivegraph-auth-video {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -30,28 +30,28 @@
   pointer-events: none;
 }
 
-.loom-auth-video .loom-relay-media::after {
+.hivegraph-auth-video .hivegraph-relay-media::after {
   background:
     linear-gradient(90deg, rgb(8 7 13 / 14%), rgb(8 7 13 / 42%) 82%, rgb(8 7 13 / 88%)),
     linear-gradient(180deg, rgb(8 7 13 / 24%), rgb(8 7 13 / 58%)),
     radial-gradient(circle at 48% 58%, transparent 8%, rgb(8 7 13 / 36%) 76%);
 }
 
-.loom-auth-video .loom-relay-media video {
+.hivegraph-auth-video .hivegraph-relay-media video {
   opacity: 0.5;
   filter: saturate(76%) contrast(108%);
   mask-image: none;
   object-position: center;
 }
 
-.loom-auth-showcase-top {
+.hivegraph-auth-showcase-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
 }
 
-.loom-auth-source {
+.hivegraph-auth-source {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -63,17 +63,17 @@
   transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out);
 }
 
-.loom-auth-source:hover {
+.hivegraph-auth-source:hover {
   border-color: var(--line-strong);
   color: var(--ink);
 }
 
-.loom-auth-story {
+.hivegraph-auth-story {
   max-width: 690px;
   margin-top: clamp(46px, 7vh, 76px);
 }
 
-.loom-live-label {
+.hivegraph-live-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -82,7 +82,7 @@
   font-size: 11px;
 }
 
-.loom-auth-story h1 {
+.hivegraph-auth-story h1 {
   max-width: 12ch;
   margin: 22px 0 18px;
   color: var(--ink);
@@ -93,7 +93,7 @@
   text-wrap: balance;
 }
 
-.loom-auth-story p {
+.hivegraph-auth-story p {
   max-width: 62ch;
   margin: 0;
   color: var(--muted);
@@ -102,7 +102,7 @@
   text-wrap: pretty;
 }
 
-.loom-auth-graph {
+.hivegraph-auth-graph {
   position: relative;
   width: min(100%, 640px);
   height: 232px;
@@ -110,7 +110,7 @@
   margin-top: clamp(30px, 4.5vh, 46px);
 }
 
-.loom-auth-edges {
+.hivegraph-auth-edges {
   position: absolute;
   z-index: 1;
   inset: 0;
@@ -120,26 +120,26 @@
   pointer-events: none;
 }
 
-.loom-auth-edge-line,
-.loom-auth-edge-path {
+.hivegraph-auth-edge-line,
+.hivegraph-auth-edge-path {
   fill: none;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
-.loom-auth-edge-line {
+.hivegraph-auth-edge-line {
   stroke: var(--line-strong);
   stroke-width: 1.25;
 }
 
-.loom-auth-edge-path {
+.hivegraph-auth-edge-path {
   opacity: 0.68;
   stroke: var(--cyan);
   stroke-width: 2.5;
   stroke-dasharray: 2 24;
 }
 
-.loom-auth-node {
+.hivegraph-auth-node {
   position: absolute;
   z-index: 2;
   display: grid;
@@ -154,13 +154,13 @@
   padding: 12px;
 }
 
-.loom-auth-node span {
+.hivegraph-auth-node span {
   color: var(--ink);
   font-size: 12px;
   font-weight: 700;
 }
 
-.loom-auth-node small {
+.hivegraph-auth-node small {
   display: flex;
   grid-column: 2;
   align-items: center;
@@ -170,7 +170,7 @@
   font-size: 9px;
 }
 
-.loom-auth-status {
+.hivegraph-auth-status {
   width: 5px;
   height: 5px;
   flex: 0 0 auto;
@@ -178,13 +178,13 @@
   background: var(--subtle);
 }
 
-.loom-auth-status.is-live { background: var(--cyan); opacity: 0.55; }
-.loom-auth-node.is-planner { top: 0; left: 50%; transform: translateX(-50%); }
-.loom-auth-node.is-research { top: 88px; left: 0; color: var(--cyan); }
-.loom-auth-node.is-analysis { top: 88px; right: 0; color: var(--success); }
-.loom-auth-node.is-synthesis { top: 168px; left: 50%; color: var(--accent); transform: translateX(-50%); }
+.hivegraph-auth-status.is-live { background: var(--cyan); opacity: 0.55; }
+.hivegraph-auth-node.is-planner { top: 0; left: 50%; transform: translateX(-50%); }
+.hivegraph-auth-node.is-research { top: 88px; left: 0; color: var(--cyan); }
+.hivegraph-auth-node.is-analysis { top: 88px; right: 0; color: var(--success); }
+.hivegraph-auth-node.is-synthesis { top: 168px; left: 50%; color: var(--accent); transform: translateX(-50%); }
 
-.loom-auth-proof {
+.hivegraph-auth-proof {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 24px;
@@ -195,15 +195,15 @@
   list-style: none;
 }
 
-.loom-auth-proof li {
+.hivegraph-auth-proof li {
   display: flex;
   align-items: center;
   gap: 7px;
 }
 
-.loom-auth-proof svg { color: var(--success); }
+.hivegraph-auth-proof svg { color: var(--success); }
 
-.loom-auth-entry {
+.hivegraph-auth-entry {
   position: relative;
   display: flex;
   min-width: 0;
@@ -214,7 +214,7 @@
   background: rgb(9 8 14 / 48%);
 }
 
-.loom-auth-entry::before {
+.hivegraph-auth-entry::before {
   position: absolute;
   width: min(70vw, 500px);
   height: min(70vw, 500px);
@@ -225,7 +225,7 @@
   pointer-events: none;
 }
 
-.loom-auth-card {
+.hivegraph-auth-card {
   position: relative;
   width: min(100%, 440px);
   border: 1px solid var(--line);
@@ -234,15 +234,15 @@
   padding: clamp(22px, 3vw, 32px);
 }
 
-.loom-auth-card-head {
+.hivegraph-auth-card-head {
   display: flex;
   align-items: flex-start;
   gap: 13px;
   margin-bottom: 24px;
 }
 
-.loom-auth-icon,
-.loom-section-icon {
+.hivegraph-auth-icon,
+.hivegraph-section-icon {
   display: grid;
   width: 38px;
   height: 38px;
@@ -253,7 +253,7 @@
   color: var(--text);
 }
 
-.loom-auth-card-head h2 {
+.hivegraph-auth-card-head h2 {
   margin: 0;
   color: var(--ink);
   font-size: 20px;
@@ -261,14 +261,14 @@
   letter-spacing: -0.02em;
 }
 
-.loom-auth-card-head p {
+.hivegraph-auth-card-head p {
   margin: 5px 0 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.55;
 }
 
-.loom-auth-tabs {
+.hivegraph-auth-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3px;
@@ -279,7 +279,7 @@
   margin-bottom: 22px;
 }
 
-.loom-auth-tabs button {
+.hivegraph-auth-tabs button {
   min-height: 39px;
   border: 0;
   border-radius: var(--radius-sm);
@@ -290,16 +290,16 @@
   font-weight: 650;
 }
 
-.loom-auth-tabs button:hover { color: var(--ink); }
-.loom-auth-tabs button.is-active { background: var(--surface-active); color: var(--ink); }
+.hivegraph-auth-tabs button:hover { color: var(--ink); }
+.hivegraph-auth-tabs button.is-active { background: var(--surface-active); color: var(--ink); }
 
-.loom-auth-form {
+.hivegraph-auth-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.loom-auth-form label {
+.hivegraph-auth-form label {
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -308,7 +308,7 @@
   font-weight: 650;
 }
 
-.loom-field {
+.hivegraph-field {
   display: flex;
   min-height: 45px;
   align-items: center;
@@ -321,12 +321,12 @@
   transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out);
 }
 
-.loom-field:focus-within {
+.hivegraph-field:focus-within {
   border-color: var(--accent);
   background: var(--surface);
 }
 
-.loom-field input {
+.hivegraph-field input {
   width: 100%;
   min-width: 0;
   border: 0;
@@ -336,11 +336,11 @@
   font-size: 13px;
 }
 
-.loom-field input::placeholder { color: var(--subtle); opacity: 1; }
-.loom-field input:focus-visible { outline: 0; }
-.loom-auth-form .loom-primary-button { width: 100%; margin-top: 2px; }
+.hivegraph-field input::placeholder { color: var(--subtle); opacity: 1; }
+.hivegraph-field input:focus-visible { outline: 0; }
+.hivegraph-auth-form .hivegraph-primary-button { width: 100%; margin-top: 2px; }
 
-.loom-auth-error {
+.hivegraph-auth-error {
   margin: 0;
   border-radius: var(--radius-sm);
   background: rgb(127 29 29 / 24%);
@@ -350,7 +350,7 @@
   line-height: 1.5;
 }
 
-.loom-auth-footnote {
+.hivegraph-auth-footnote {
   position: relative;
   max-width: 380px;
   margin: 16px 0 0;
@@ -359,7 +359,7 @@
   text-align: center;
 }
 
-.loom-auth-terminal {
+.hivegraph-auth-terminal {
   position: relative;
   width: min(100%, 440px);
   border: 1px solid var(--line);
@@ -369,7 +369,7 @@
   overflow: hidden;
 }
 
-.loom-auth-terminal > header {
+.hivegraph-auth-terminal > header {
   display: flex;
   min-height: 34px;
   align-items: center;
@@ -378,23 +378,23 @@
   padding: 0 11px;
 }
 
-.loom-auth-terminal > header strong { color: var(--text); font-size: 9px; }
-.loom-auth-terminal > header > span:last-child { color: var(--subtle); font-size: 8px; margin-left: auto; }
-.loom-terminal-lights { display: flex; gap: 4px; }
-.loom-terminal-lights i { width: 5px; height: 5px; border-radius: 50%; background: var(--subtle); }
-.loom-terminal-lights i:nth-child(1) { background: var(--danger); }
-.loom-terminal-lights i:nth-child(2) { background: var(--warning); }
-.loom-terminal-lights i:nth-child(3) { background: var(--success); }
+.hivegraph-auth-terminal > header strong { color: var(--text); font-size: 9px; }
+.hivegraph-auth-terminal > header > span:last-child { color: var(--subtle); font-size: 8px; margin-left: auto; }
+.hivegraph-terminal-lights { display: flex; gap: 4px; }
+.hivegraph-terminal-lights i { width: 5px; height: 5px; border-radius: 50%; background: var(--subtle); }
+.hivegraph-terminal-lights i:nth-child(1) { background: var(--danger); }
+.hivegraph-terminal-lights i:nth-child(2) { background: var(--warning); }
+.hivegraph-terminal-lights i:nth-child(3) { background: var(--success); }
 
-.loom-terminal-body {
+.hivegraph-terminal-body {
   display: grid;
   gap: 8px;
   padding: 10px 11px 11px;
 }
 
-.loom-terminal-body > div { display: grid; grid-template-columns: 68px minmax(0, 1fr); align-items: baseline; gap: 8px; }
-.loom-terminal-body b { color: var(--cyan); font-size: 8px; }
-.loom-terminal-body code {
+.hivegraph-terminal-body > div { display: grid; grid-template-columns: 68px minmax(0, 1fr); align-items: baseline; gap: 8px; }
+.hivegraph-terminal-body b { color: var(--cyan); font-size: 8px; }
+.hivegraph-terminal-body code {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 8px;
@@ -404,36 +404,36 @@
 }
 
 @media (max-width: 980px) {
-  .loom-auth-page { grid-template-columns: 1fr; }
-  .loom-auth-showcase { min-height: 680px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .loom-auth-story h1 { font-size: clamp(2.8rem, 9vw, 4.8rem); }
-  .loom-auth-entry { min-height: 640px; }
+  .hivegraph-auth-page { grid-template-columns: 1fr; }
+  .hivegraph-auth-showcase { min-height: 680px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .hivegraph-auth-story h1 { font-size: clamp(2.8rem, 9vw, 4.8rem); }
+  .hivegraph-auth-entry { min-height: 640px; }
 }
 
 @media (min-width: 981px) and (max-height: 900px) {
-  .loom-auth-showcase { padding-block: 28px; }
-  .loom-auth-story { margin-top: 32px; }
-  .loom-auth-story h1 { margin-block: 16px 13px; font-size: clamp(2.8rem, 4.7vw, 4.15rem); }
-  .loom-auth-story p { font-size: 13px; line-height: 1.6; }
-  .loom-auth-graph { height: 176px; margin-top: 20px; }
-  .loom-auth-node { min-height: 54px; padding: 7px 10px; }
-  .loom-auth-node.is-research,
-  .loom-auth-node.is-analysis { top: 67px; }
-  .loom-auth-node.is-synthesis { top: 122px; }
-  .loom-auth-proof { margin-top: 16px; }
-  .loom-auth-entry { padding-block: 22px; }
-  .loom-auth-terminal { margin-top: 12px; }
+  .hivegraph-auth-showcase { padding-block: 28px; }
+  .hivegraph-auth-story { margin-top: 32px; }
+  .hivegraph-auth-story h1 { margin-block: 16px 13px; font-size: clamp(2.8rem, 4.7vw, 4.15rem); }
+  .hivegraph-auth-story p { font-size: 13px; line-height: 1.6; }
+  .hivegraph-auth-graph { height: 176px; margin-top: 20px; }
+  .hivegraph-auth-node { min-height: 54px; padding: 7px 10px; }
+  .hivegraph-auth-node.is-research,
+  .hivegraph-auth-node.is-analysis { top: 67px; }
+  .hivegraph-auth-node.is-synthesis { top: 122px; }
+  .hivegraph-auth-proof { margin-top: 16px; }
+  .hivegraph-auth-entry { padding-block: 22px; }
+  .hivegraph-auth-terminal { margin-top: 12px; }
 }
 
 @media (max-width: 620px) {
-  .loom-auth-showcase { min-height: auto; padding: 22px 18px 34px; }
-  .loom-auth-showcase-top .loom-tagline { display: none; }
-  .loom-auth-source { font-size: 0; }
-  .loom-auth-source svg { width: 18px; height: 18px; }
-  .loom-auth-story { margin-top: 56px; }
-  .loom-auth-story h1 { margin-top: 18px; font-size: 2.75rem; }
-  .loom-auth-graph { display: none; }
-  .loom-auth-proof { margin-top: 30px; gap: 9px 16px; }
-  .loom-auth-entry { min-height: auto; padding: 46px 14px; }
-  .loom-auth-card { padding: 22px 18px; }
+  .hivegraph-auth-showcase { min-height: auto; padding: 22px 18px 34px; }
+  .hivegraph-auth-showcase-top .hivegraph-tagline { display: none; }
+  .hivegraph-auth-source { font-size: 0; }
+  .hivegraph-auth-source svg { width: 18px; height: 18px; }
+  .hivegraph-auth-story { margin-top: 56px; }
+  .hivegraph-auth-story h1 { margin-top: 18px; font-size: 2.75rem; }
+  .hivegraph-auth-graph { display: none; }
+  .hivegraph-auth-proof { margin-top: 30px; gap: 9px 16px; }
+  .hivegraph-auth-entry { min-height: auto; padding: 46px 14px; }
+  .hivegraph-auth-card { padding: 22px 18px; }
 }

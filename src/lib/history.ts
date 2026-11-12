@@ -11,8 +11,8 @@ export interface SavedRun {
   stats: { tokensIn: number; tokensOut: number; ms: number } | null;
 }
 
-const KEY = "loom.runs.v1";
-const SEED_FLAG = "loom.seeded.v1";
+const KEY = "hivegraph.runs.v1";
+const SEED_FLAG = "hivegraph.seeded.v1";
 const MAX = 25;
 
 function read(): SavedRun[] {

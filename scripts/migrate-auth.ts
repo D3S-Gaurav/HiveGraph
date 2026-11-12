@@ -10,9 +10,9 @@ async function main() {
 
   try {
     // Vercel can start two production builds concurrently. A shared advisory
-    // lock serializes every Loom release migration without holding a table.
+    // lock serializes every HiveGraph release migration without holding a table.
     await migrationLock.query("select pg_advisory_lock(hashtext($1))", [
-      "loom:release-migrations",
+      "hivegraph:release-migrations",
     ]);
     const { toBeCreated, toBeAdded, runMigrations } = await getMigrations(auth.options);
 
@@ -25,7 +25,7 @@ async function main() {
     }
   } finally {
     await migrationLock
-      .query("select pg_advisory_unlock(hashtext($1))", ["loom:release-migrations"])
+      .query("select pg_advisory_unlock(hashtext($1))", ["hivegraph:release-migrations"])
       .catch(() => undefined);
     migrationLock.release();
     await database.end();

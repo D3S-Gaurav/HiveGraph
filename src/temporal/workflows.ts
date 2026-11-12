@@ -11,6 +11,6 @@ const { executeSwarm } = proxyActivities<typeof activities>({
   retry: { maximumAttempts: 1 },
 });
 
-export async function loomSwarmWorkflow(input: SwarmWorkflowInput) {
+export async function hivegraphSwarmWorkflow(input: SwarmWorkflowInput) {
   await executeSwarm(input);
 }

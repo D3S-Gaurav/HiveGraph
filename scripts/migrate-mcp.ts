@@ -7,7 +7,7 @@ async function migrate() {
   const migrationLock = await database.connect();
   try {
     await migrationLock.query("select pg_advisory_lock(hashtext($1))", [
-      "loom:release-migrations",
+      "hivegraph:release-migrations",
     ]);
     await database.query(`
       create table if not exists mcp_access_token (
@@ -22,7 +22,7 @@ async function migrate() {
     console.log("MCP access-token migration is up to date.");
   } finally {
     await migrationLock
-      .query("select pg_advisory_unlock(hashtext($1))", ["loom:release-migrations"])
+      .query("select pg_advisory_unlock(hashtext($1))", ["hivegraph:release-migrations"])
       .catch(() => undefined);
     migrationLock.release();
     await database.end();

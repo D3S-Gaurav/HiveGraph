@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package loom.telemetry.v1;
+package hivegraph.telemetry.v1;
 
-option go_package = "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1;telemetryv1";
+option go_package = "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1;telemetryv1";
 
 // TelemetryService exposes the swarm event stream that the Go consumer already
 // reads off Kafka. HTTP /metrics is a pull surface for Prometheus; this is the

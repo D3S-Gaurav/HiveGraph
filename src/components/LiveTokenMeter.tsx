@@ -24,7 +24,7 @@ export function LiveTokenMeter() {
 
   return (
     <div
-      className={`loom-token-meter${live ? " is-live" : ""}`}
+      className={`hivegraph-token-meter${live ? " is-live" : ""}`}
       aria-label={`${tokens.toLocaleString()} approximate tokens${live ? " used so far" : " used"}`}
     >
       <RadioIcon size={14} />

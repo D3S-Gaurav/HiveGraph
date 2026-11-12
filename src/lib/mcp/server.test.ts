@@ -8,14 +8,14 @@ const runs = vi.hoisted(() => ({
 
 vi.mock("./runs", () => runs);
 
-import { createLoomMcpServer } from "./server";
+import { createHiveGraphMcpServer } from "./server";
 
 async function requestMcp(body: unknown) {
-  const server = createLoomMcpServer("owner-user");
+  const server = createHiveGraphMcpServer("owner-user");
   const transport = new WebStandardStreamableHTTPServerTransport({ enableJsonResponse: true });
   await server.connect(transport);
   return transport.handleRequest(
-    new Request("https://loom.example/api/mcp", {
+    new Request("https://hivegraph.example/api/mcp", {
       method: "POST",
       headers: {
         accept: "application/json, text/event-stream",
@@ -26,7 +26,7 @@ async function requestMcp(body: unknown) {
   );
 }
 
-describe("Loom MCP server", () => {
+describe("HiveGraph MCP server", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("negotiates Streamable HTTP and advertises only read-only tools", async () => {
@@ -37,13 +37,13 @@ describe("Loom MCP server", () => {
       params: {
         protocolVersion: "2025-11-25",
         capabilities: {},
-        clientInfo: { name: "loom-test", version: "1.0.0" },
+        clientInfo: { name: "hivegraph-test", version: "1.0.0" },
       },
     });
 
     expect(response.status).toBe(200);
     const payload = await response.json();
-    expect(payload.result.serverInfo.name).toBe("loom");
+    expect(payload.result.serverInfo.name).toBe("hivegraph");
     expect(payload.result.capabilities.tools).toBeDefined();
   });
 

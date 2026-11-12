@@ -10,7 +10,7 @@ import { getUserPlan } from "@/lib/billing/repository";
 import { getMcpTokenStatus } from "@/lib/mcp/service";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { LoomBrand } from "@/components/ui/Brand";
+import { HiveGraphBrand } from "@/components/ui/Brand";
 import { CheckIcon, GitHubIcon, WarningIcon } from "@/components/ui/Icons";
 
 export default async function Home({
@@ -27,10 +27,10 @@ export default async function Home({
   ]);
 
   return (
-    <main className="loom-app">
-      <header className="loom-header">
-        <LoomBrand tagline="Live agent swarm orchestration" />
-        <div className="loom-header-actions">
+    <main className="hivegraph-app">
+      <header className="hivegraph-header">
+        <HiveGraphBrand tagline="Live agent swarm orchestration" />
+        <div className="hivegraph-header-actions">
           <NewSwarmButton />
           <SystemStatus />
           <LiveTokenMeter />
@@ -42,9 +42,9 @@ export default async function Home({
             }}
           />
           <a
-            aria-label="View Loom source on GitHub"
-            className="loom-icon-link"
-            href="https://github.com/D3S-Gaurav/Loom"
+            aria-label="View HiveGraph source on GitHub"
+            className="hivegraph-icon-link"
+            href="https://github.com/D3S-Gaurav/HiveGraph"
             target="_blank"
             rel="noreferrer"
           >
@@ -56,12 +56,12 @@ export default async function Home({
       </header>
 
       {query.billing === "success" ? (
-        <div className="loom-billing-notice is-success">
+        <div className="hivegraph-billing-notice is-success">
           <CheckIcon size={16} />
           <span>Payment received. Pro activates as soon as Stripe confirms the subscription.</span>
         </div>
       ) : query.billing === "cancelled" ? (
-        <div className="loom-billing-notice">
+        <div className="hivegraph-billing-notice">
           <WarningIcon size={16} />
           <span>Checkout cancelled. Your plan was not changed.</span>
         </div>

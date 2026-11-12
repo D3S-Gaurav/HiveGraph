@@ -31,8 +31,8 @@ function intEnv(name: string, fallback: number) {
 }
 
 export const MODEL_RATE_LIMIT = {
-  limit: intEnv("LOOM_MODEL_CALLS_PER_WINDOW", 120),
-  windowSeconds: intEnv("LOOM_MODEL_WINDOW_SECONDS", 3600),
+  limit: intEnv("HIVEGRAPH_MODEL_CALLS_PER_WINDOW", 120),
+  windowSeconds: intEnv("HIVEGRAPH_MODEL_WINDOW_SECONDS", 3600),
 };
 
 const INCREMENT_WITH_EXPIRY = `
@@ -109,5 +109,5 @@ export async function enforceRunRateLimit({
 }
 
 export function rateLimitKey(scope: string, id: string) {
-  return `loom:rate:${scope}:${id}`;
+  return `hivegraph:rate:${scope}:${id}`;
 }

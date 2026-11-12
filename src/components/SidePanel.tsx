@@ -15,9 +15,9 @@ import {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="loom-stat">
-      <span className="loom-stat-val">{value}</span>
-      <span className="loom-stat-label">{label}</span>
+    <div className="hivegraph-stat">
+      <span className="hivegraph-stat-val">{value}</span>
+      <span className="hivegraph-stat-label">{label}</span>
     </div>
   );
 }
@@ -65,7 +65,7 @@ export function SidePanel() {
       document.title = previousTitle;
       window.removeEventListener("afterprint", restoreTitle);
     };
-    document.title = `${readerTitle} - Loom`;
+    document.title = `${readerTitle} - HiveGraph`;
     window.addEventListener("afterprint", restoreTitle, { once: true });
     window.print();
     window.setTimeout(restoreTitle, 60_000);
@@ -101,20 +101,20 @@ export function SidePanel() {
   }, []);
 
   return (
-    <aside className="loom-side">
-      {error && <div className="loom-error" role="alert"><WarningIcon size={17} /><span>{error}</span></div>}
+    <aside className="hivegraph-side">
+      {error && <div className="hivegraph-error" role="alert"><WarningIcon size={17} /><span>{error}</span></div>}
 
       {agent ? (
         <>
-          <div className="loom-side-head">
-            <div className="loom-deliverable-heading-row">
-              <span style={{ color: AGENT_META[agent.agentType].color }} className="loom-side-label">
+          <div className="hivegraph-side-head">
+            <div className="hivegraph-deliverable-heading-row">
+              <span style={{ color: AGENT_META[agent.agentType].color }} className="hivegraph-side-label">
                 <AgentIcon type={agent.agentType} size={15} /> {AGENT_META[agent.agentType].label}
               </span>
               {agent.agentType === "synthesizer" && agent.output ? (
                 <button
                   ref={readerTriggerRef}
-                  className="loom-deliverable-open"
+                  className="hivegraph-deliverable-open"
                   type="button"
                   onClick={openReader}
                   aria-haspopup="dialog"
@@ -126,15 +126,15 @@ export function SidePanel() {
             </div>
             <h3>{agent.title}</h3>
             {agent.score != null && (
-              <div className="loom-verdict">
+              <div className="hivegraph-verdict">
                 Validator: <strong>{agent.score}/10</strong>
                 {agent.feedback && <p>{agent.feedback}</p>}
               </div>
             )}
           </div>
-          <div className="loom-scroll">
+          <div className="hivegraph-scroll">
             {agent.output ? <Markdown>{agent.output}</Markdown> : (
-              <div className="loom-empty-output">
+              <div className="hivegraph-empty-output">
                 <span><AgentIcon type={agent.agentType} size={20} /></span>
                 <p>Waiting for this agent&apos;s first output…</p>
               </div>
@@ -143,16 +143,16 @@ export function SidePanel() {
         </>
       ) : (
         <>
-          <div className={`loom-side-head${final ? " loom-deliverable-head" : ""}`}>
-            <div className="loom-deliverable-heading-row">
-              <span className="loom-side-label">
+          <div className={`hivegraph-side-head${final ? " hivegraph-deliverable-head" : ""}`}>
+            <div className="hivegraph-deliverable-heading-row">
+              <span className="hivegraph-side-label">
                 <SparklesIcon size={15} />
                 {runStatus === "running" ? "Swarm in progress" : runStatus === "done" ? "Final deliverable" : "Run briefing"}
               </span>
               {final ? (
                 <button
                   ref={readerTriggerRef}
-                  className="loom-deliverable-open"
+                  className="hivegraph-deliverable-open"
                   type="button"
                   onClick={openReader}
                   aria-haspopup="dialog"
@@ -166,23 +166,23 @@ export function SidePanel() {
           </div>
 
           {stats && (
-            <div className="loom-stats">
+            <div className="hivegraph-stats">
               <Stat label="agents" value={String(Object.keys(agents).length - 2)} />
               <Stat label="time" value={`${(stats.ms / 1000).toFixed(1)}s`} />
               <Stat label="tokens≈" value={`${((stats.tokensIn + stats.tokensOut) / 1000).toFixed(1)}k`} />
             </div>
           )}
 
-          <div className={`loom-scroll${final ? " loom-deliverable-preview" : ""}`}>
+          <div className={`hivegraph-scroll${final ? " hivegraph-deliverable-preview" : ""}`}>
             {final ? (
               <Markdown>{final}</Markdown>
             ) : runStatus === "running" ? (
-              <div className="loom-thinking">
-                <p className="loom-muted">Planner is decomposing the goal…</p>
-                {planThinking && <p className="loom-plan-think">{planThinking}</p>}
+              <div className="hivegraph-thinking">
+                <p className="hivegraph-muted">Planner is decomposing the goal…</p>
+                {planThinking && <p className="hivegraph-plan-think">{planThinking}</p>}
               </div>
             ) : (
-              <div className="loom-empty-output">
+              <div className="hivegraph-empty-output">
                 <span><SparklesIcon size={20} /></span>
                 <h4>Your result will land here</h4>
                 <p>
@@ -199,9 +199,9 @@ export function SidePanel() {
       {readerContent ? (
         <dialog
           ref={readerDialogRef}
-          className="loom-deliverable-dialog"
-          aria-labelledby="loom-deliverable-title"
-          aria-describedby="loom-deliverable-description"
+          className="hivegraph-deliverable-dialog"
+          aria-labelledby="hivegraph-deliverable-title"
+          aria-describedby="hivegraph-deliverable-description"
           onCancel={(event) => {
             event.preventDefault();
             closeReader();
@@ -211,18 +211,18 @@ export function SidePanel() {
           }}
           onClose={() => setReaderOpen(false)}
         >
-          <section className="loom-deliverable-reader">
-            <header className="loom-deliverable-reader-head">
-              <div className="loom-deliverable-reader-title">
+          <section className="hivegraph-deliverable-reader">
+            <header className="hivegraph-deliverable-reader-head">
+              <div className="hivegraph-deliverable-reader-title">
                 <span><SparklesIcon size={17} /></span>
                 <div>
-                  <h2 id="loom-deliverable-title">{readerTitle}</h2>
-                  <p id="loom-deliverable-description">
+                  <h2 id="hivegraph-deliverable-title">{readerTitle}</h2>
+                  <p id="hivegraph-deliverable-description">
                     Synthesized result from the completed swarm run.
                   </p>
                 </div>
               </div>
-              <div className="loom-deliverable-reader-actions">
+              <div className="hivegraph-deliverable-reader-actions">
                 <button type="button" onClick={downloadPdf} title="Open the print dialog and choose Save as PDF">
                   <DownloadIcon size={14} />
                   Download PDF
@@ -232,7 +232,7 @@ export function SidePanel() {
                 </button>
                 <button
                   ref={readerCloseRef}
-                  className="loom-deliverable-close"
+                  className="hivegraph-deliverable-close"
                   type="button"
                   onClick={closeReader}
                   aria-label={`Close ${readerTitle.toLowerCase()} reader`}
@@ -242,13 +242,13 @@ export function SidePanel() {
               </div>
             </header>
 
-            <div className="loom-deliverable-reader-scroll">
-              <article className="loom-deliverable-document">
+            <div className="hivegraph-deliverable-reader-scroll">
+              <article className="hivegraph-deliverable-document">
                 <Markdown>{readerContent}</Markdown>
               </article>
             </div>
 
-            <span className="loom-deliverable-copy-status" aria-live="polite">
+            <span className="hivegraph-deliverable-copy-status" aria-live="polite">
               {copyStatus === "copied"
                 ? `${readerTitle} copied to the clipboard.`
                 : copyStatus === "error"

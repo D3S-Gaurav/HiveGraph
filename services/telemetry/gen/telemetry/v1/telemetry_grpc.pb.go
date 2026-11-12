@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TelemetryService_GetRunMetrics_FullMethodName   = "/loom.telemetry.v1.TelemetryService/GetRunMetrics"
-	TelemetryService_StreamRunEvents_FullMethodName = "/loom.telemetry.v1.TelemetryService/StreamRunEvents"
+	TelemetryService_GetRunMetrics_FullMethodName   = "/hivegraph.telemetry.v1.TelemetryService/GetRunMetrics"
+	TelemetryService_StreamRunEvents_FullMethodName = "/hivegraph.telemetry.v1.TelemetryService/StreamRunEvents"
 )
 
 // TelemetryServiceClient is the client API for TelemetryService service.
@@ -164,7 +164,7 @@ type TelemetryService_StreamRunEventsServer = grpc.ServerStreamingServer[RunEven
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TelemetryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "loom.telemetry.v1.TelemetryService",
+	ServiceName: "hivegraph.telemetry.v1.TelemetryService",
 	HandlerType: (*TelemetryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

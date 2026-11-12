@@ -11,9 +11,9 @@ RUN pnpm install --frozen-lockfile
 COPY tsconfig.json ./
 COPY src ./src
 
-RUN groupadd --gid 1001 loom \
-  && useradd --uid 1001 --gid loom --no-create-home --shell /usr/sbin/nologin loom
-USER loom
+RUN groupadd --gid 1001 hivegraph \
+  && useradd --uid 1001 --gid hivegraph --no-create-home --shell /usr/sbin/nologin hivegraph
+USER hivegraph
 # Invoke the installed binary directly. Starting through `pnpm` would make
 # Corepack attempt a runtime download/cache write as the non-root user.
 CMD ["./node_modules/.bin/tsx", "src/temporal/worker.ts"]

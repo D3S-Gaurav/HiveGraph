@@ -243,7 +243,7 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
           });
           imageBytes += file.size;
         } catch {
-          error = `Loom could not read ${file.name}.`;
+          error = `HiveGraph could not read ${file.name}.`;
         }
         continue;
       }
@@ -274,7 +274,7 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
         });
         textBytes += file.size;
       } catch {
-        error = `Loom could not read ${file.name}.`;
+        error = `HiveGraph could not read ${file.name}.`;
       }
     }
 
@@ -309,24 +309,24 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
 
   return (
     <section
-      className={`loom-goalbar${onboarding ? " is-onboarding" : ""}${busy ? " is-live" : ""}`}
-      aria-labelledby="loom-goal-title"
+      className={`hivegraph-goalbar${onboarding ? " is-onboarding" : ""}${busy ? " is-live" : ""}`}
+      aria-labelledby="hivegraph-goal-title"
     >
-      <div className="loom-goalbar-head">
+      <div className="hivegraph-goalbar-head">
         <div>
-          <span className="loom-section-icon"><SparklesIcon size={onboarding ? 19 : 16} /></span>
+          <span className="hivegraph-section-icon"><SparklesIcon size={onboarding ? 19 : 16} /></span>
           <div>
-            <h2 id="loom-goal-title">
+            <h2 id="hivegraph-goal-title">
               {onboarding ? "Describe the outcome" : "What should the swarm solve?"}
             </h2>
             <p>
               {onboarding
-                ? "Add the context that matters. Loom will plan, delegate, verify, and synthesize the work."
-                : "Give it a complex outcome. Loom will plan the path and verify the work."}
+                ? "Add the context that matters. HiveGraph will plan, delegate, verify, and synthesize the work."
+                : "Give it a complex outcome. HiveGraph will plan the path and verify the work."}
             </p>
           </div>
         </div>
-        <span className={`loom-key-hint${busy ? " is-live" : ""}`} aria-live="polite">
+        <span className={`hivegraph-key-hint${busy ? " is-live" : ""}`} aria-live="polite">
           {busy ? "Live orchestration" : "⌘ ↵ to deploy"}
         </span>
       </div>
@@ -336,9 +336,9 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
           event.preventDefault();
           submit(goal);
         }}
-        className="loom-goalform"
+        className="hivegraph-goalform"
       >
-        <div className="loom-composer-field">
+        <div className="hivegraph-composer-field">
           <textarea
             value={goal}
             onChange={(event) => setGoal(event.target.value)}
@@ -350,47 +350,47 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
                 submit(goal);
               }
             }}
-            className="loom-input"
+            className="hivegraph-input"
             disabled={busy}
             rows={onboarding ? 3 : 2}
             maxLength={2000}
             aria-label="Swarm goal"
-            aria-describedby={attachmentError ? "loom-attachment-error" : undefined}
+            aria-describedby={attachmentError ? "hivegraph-attachment-error" : undefined}
           />
           {onboarding && !goal && !focused ? (
-            <span className="loom-live-example" key={exampleIndex} aria-hidden="true">
+            <span className="hivegraph-live-example" key={exampleIndex} aria-hidden="true">
               {LIVE_EXAMPLES[exampleIndex]}
             </span>
           ) : null}
-          <span className="loom-character-count" aria-live="off">{goal.length}/2000</span>
+          <span className="hivegraph-character-count" aria-live="off">{goal.length}/2000</span>
         </div>
 
         <button
           type="submit"
-          className="loom-primary-button loom-deploy"
+          className="hivegraph-primary-button hivegraph-deploy"
           disabled={busy || goal.trim().length < 4}
         >
           {busy
-            ? <><span className="loom-button-loader" />Swarming…</>
+            ? <><span className="hivegraph-button-loader" />Swarming…</>
             : <><RocketIcon size={18} />Deploy swarm</>}
         </button>
       </form>
 
-      <div className="loom-attachment-tools">
+      <div className="hivegraph-attachment-tools">
         <input
           id={fileInputId}
-          className="loom-file-input"
+          className="hivegraph-file-input"
           type="file"
           multiple
           accept="image/png,image/jpeg,image/webp,image/gif,text/*,.json,.md,.csv,.js,.jsx,.ts,.tsx,.py,.go,.rs,.java,.c,.cc,.cpp,.sql,.yaml,.yml,.toml"
           onChange={addFiles}
           disabled={busy || attachments.length >= MAX_ATTACHMENTS}
         />
-        <label className="loom-attachment-button" htmlFor={fileInputId} aria-disabled={busy || attachments.length >= MAX_ATTACHMENTS}>
+        <label className="hivegraph-attachment-button" htmlFor={fileInputId} aria-disabled={busy || attachments.length >= MAX_ATTACHMENTS}>
           <LayersIcon size={15} /> Add files
         </label>
         <button
-          className="loom-attachment-button"
+          className="hivegraph-attachment-button"
           type="button"
           onClick={() => setRepoOpen((open) => !open)}
           disabled={busy || attachments.length >= MAX_ATTACHMENTS}
@@ -398,11 +398,11 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
         >
           <GitHubIcon size={15} /> GitHub repository
         </button>
-        <span className="loom-attachment-limits">4 items · text 32 KB each · images 1 MB each · 3 MB request</span>
+        <span className="hivegraph-attachment-limits">4 items · text 32 KB each · images 1 MB each · 3 MB request</span>
       </div>
 
-      <div className="loom-mode-row">
-        <fieldset className="loom-mode-selector">
+      <div className="hivegraph-mode-row">
+        <fieldset className="hivegraph-mode-selector">
           <legend>Swarm depth</legend>
           {SWARM_MODES.map((option) => (
             <label key={option.value}>
@@ -422,12 +422,12 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
       </div>
 
       {repoOpen ? (
-        <form className="loom-repo-form" onSubmit={addRepository}>
+        <form className="hivegraph-repo-form" onSubmit={addRepository}>
           <GitHubIcon size={16} />
-          <label htmlFor="loom-repository-url" className="loom-sr-only">Public GitHub repository URL</label>
+          <label htmlFor="hivegraph-repository-url" className="hivegraph-sr-only">Public GitHub repository URL</label>
           <input
             ref={repoInputRef}
-            id="loom-repository-url"
+            id="hivegraph-repository-url"
             type="url"
             value={repoValue}
             onChange={(event) => setRepoValue(event.target.value)}
@@ -439,7 +439,7 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
       ) : null}
 
       {attachments.length ? (
-        <ul className="loom-attachments" aria-label="Attached context">
+        <ul className="hivegraph-attachments" aria-label="Attached context">
           {attachments.map((item) => (
             <li key={item.id}>
               {item.kind === "github" ? <GitHubIcon size={14} /> : <LayersIcon size={14} />}
@@ -469,23 +469,23 @@ export function GoalBar({ mode = "compact" }: GoalBarProps) {
       ) : null}
 
       {attachmentError ? (
-        <p className="loom-attachment-error" id="loom-attachment-error" role="alert">
+        <p className="hivegraph-attachment-error" id="hivegraph-attachment-error" role="alert">
           <WarningIcon size={14} /> {attachmentError}
         </p>
       ) : null}
       {busy && !planSummary ? (
-        <div className="loom-launch-relay" role="status" aria-live="polite">
+        <div className="hivegraph-launch-relay" role="status" aria-live="polite">
           <span aria-hidden="true"><i /><i /><i /></span>
           Securing context and planning the first handoffs…
         </div>
       ) : null}
 
-      <div className="loom-goalbar-foot">
-        <div className="loom-examples" aria-label="Example goals">
+      <div className="hivegraph-goalbar-foot">
+        <div className="hivegraph-examples" aria-label="Example goals">
           {EXAMPLES.map((example) => (
             <button
               key={example.label}
-              className="loom-chip"
+              className="hivegraph-chip"
               onClick={() => setGoal(example.goal)}
               disabled={busy}
               type="button"

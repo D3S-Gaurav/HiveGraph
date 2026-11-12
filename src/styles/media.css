@@ -1,4 +1,4 @@
-.loom-relay-media {
+.hivegraph-relay-media {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -6,7 +6,7 @@
   pointer-events: none;
 }
 
-.loom-relay-media::after {
+.hivegraph-relay-media::after {
   position: absolute;
   inset: 0;
   background:
@@ -15,7 +15,7 @@
   content: "";
 }
 
-.loom-relay-media video {
+.hivegraph-relay-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -25,6 +25,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loom-relay-media video { display: none; }
-  .loom-relay-media { background: url("/media/loom-relay-poster.jpg") center / cover no-repeat; }
+  .hivegraph-relay-media video { display: none; }
+  .hivegraph-relay-media { background: url("/media/hivegraph-relay-poster.jpg") center / cover no-repeat; }
 }

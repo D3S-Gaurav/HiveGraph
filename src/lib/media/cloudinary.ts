@@ -53,8 +53,8 @@ export async function storeSwarmImage(input: {
     const stored = await cloudinary.uploader.upload(input.dataUrl, {
       resource_type: "image",
       type: "authenticated",
-      folder: `loom/run-context/${ownerHash}/${input.runId}`,
-      tags: ["loom", "run-context"],
+      folder: `hivegraph/run-context/${ownerHash}/${input.runId}`,
+      tags: ["hivegraph", "run-context"],
       unique_filename: true,
       use_filename: false,
       overwrite: false,
@@ -69,6 +69,6 @@ export async function storeSwarmImage(input: {
     };
   } catch (error) {
     console.error("Cloudinary image storage failed", error);
-    throw new ImageStorageUnavailableError("Loom could not store the attached image.");
+    throw new ImageStorageUnavailableError("HiveGraph could not store the attached image.");
   }
 }

@@ -36,9 +36,9 @@ export async function startProCheckout(user: BillingUser) {
       {
         email: user.email,
         name: user.name,
-        metadata: { loomUserId: user.id },
+        metadata: { hivegraphUserId: user.id },
       },
-      { idempotencyKey: `loom-customer-${user.id}` },
+      { idempotencyKey: `hivegraph-customer-${user.id}` },
     );
     customerId = customer.id;
     await saveStripeCustomer(user.id, customerId);
@@ -52,13 +52,13 @@ export async function startProCheckout(user: BillingUser) {
       client_reference_id: user.id,
       line_items: [{ price: priceId, quantity: 1 }],
       allow_promotion_codes: true,
-      metadata: { loomUserId: user.id },
-      subscription_data: { metadata: { loomUserId: user.id } },
+      metadata: { hivegraphUserId: user.id },
+      subscription_data: { metadata: { hivegraphUserId: user.id } },
       success_url: `${appUrl}/?billing=success`,
       cancel_url: `${appUrl}/?billing=cancelled`,
     },
     {
-      idempotencyKey: `loom-checkout-${user.id}-${new Date().toISOString().slice(0, 13)}`,
+      idempotencyKey: `hivegraph-checkout-${user.id}-${new Date().toISOString().slice(0, 13)}`,
     },
   );
 
@@ -119,7 +119,7 @@ async function syncCheckout(event: Stripe.CheckoutSessionCompletedEvent) {
   const subscription = await currentSubscription(
     await getStripe().subscriptions.retrieve(subscriptionId),
   );
-  const userId = session.client_reference_id ?? session.metadata?.loomUserId;
+  const userId = session.client_reference_id ?? session.metadata?.hivegraphUserId;
   await syncStripeEvent({
     eventId: event.id,
     eventType: event.type,
@@ -145,7 +145,7 @@ async function syncSubscription(
     eventCreated: event.created,
     subscription,
     explicitUserId:
-      subscription.metadata.loomUserId || event.data.object.metadata.loomUserId || undefined,
+      subscription.metadata.hivegraphUserId || event.data.object.metadata.hivegraphUserId || undefined,
   });
 }
 

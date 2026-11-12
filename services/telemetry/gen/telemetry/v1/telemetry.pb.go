@@ -319,7 +319,7 @@ var File_telemetry_v1_telemetry_proto protoreflect.FileDescriptor
 
 const file_telemetry_v1_telemetry_proto_rawDesc = "" +
 	"\n" +
-	"\x1ctelemetry/v1/telemetry.proto\x12\x11loom.telemetry.v1\"\x16\n" +
+	"\x1ctelemetry/v1/telemetry.proto\x12\x16hivegraph.telemetry.v1\"\x16\n" +
 	"\x14GetRunMetricsRequest\"\xd7\x03\n" +
 	"\x15GetRunMetricsResponse\x12\x1f\n" +
 	"\vconsumer_up\x18\x01 \x01(\bR\n" +
@@ -344,10 +344,10 @@ const file_telemetry_v1_telemetry_proto_rawDesc = "" +
 	"\bsequence\x18\x03 \x01(\x03R\bsequence\x12$\n" +
 	"\x0eoccurred_at_ms\x18\x04 \x01(\x03R\foccurredAtMs\x12\x12\n" +
 	"\x04kind\x18\x05 \x01(\tR\x04kind\x12!\n" +
-	"\fpayload_json\x18\x06 \x01(\tR\vpayloadJson2\xd3\x01\n" +
-	"\x10TelemetryService\x12b\n" +
-	"\rGetRunMetrics\x12'.loom.telemetry.v1.GetRunMetricsRequest\x1a(.loom.telemetry.v1.GetRunMetricsResponse\x12[\n" +
-	"\x0fStreamRunEvents\x12).loom.telemetry.v1.StreamRunEventsRequest\x1a\x1b.loom.telemetry.v1.RunEvent0\x01BLZJgithub.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1;telemetryv1b\x06proto3"
+	"\fpayload_json\x18\x06 \x01(\tR\vpayloadJson2\xe7\x01\n" +
+	"\x10TelemetryService\x12l\n" +
+	"\rGetRunMetrics\x12,.hivegraph.telemetry.v1.GetRunMetricsRequest\x1a-.hivegraph.telemetry.v1.GetRunMetricsResponse\x12e\n" +
+	"\x0fStreamRunEvents\x12..hivegraph.telemetry.v1.StreamRunEventsRequest\x1a .hivegraph.telemetry.v1.RunEvent0\x01BQZOgithub.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1;telemetryv1b\x06proto3"
 
 var (
 	file_telemetry_v1_telemetry_proto_rawDescOnce sync.Once
@@ -363,16 +363,16 @@ func file_telemetry_v1_telemetry_proto_rawDescGZIP() []byte {
 
 var file_telemetry_v1_telemetry_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_telemetry_v1_telemetry_proto_goTypes = []any{
-	(*GetRunMetricsRequest)(nil),   // 0: loom.telemetry.v1.GetRunMetricsRequest
-	(*GetRunMetricsResponse)(nil),  // 1: loom.telemetry.v1.GetRunMetricsResponse
-	(*StreamRunEventsRequest)(nil), // 2: loom.telemetry.v1.StreamRunEventsRequest
-	(*RunEvent)(nil),               // 3: loom.telemetry.v1.RunEvent
+	(*GetRunMetricsRequest)(nil),   // 0: hivegraph.telemetry.v1.GetRunMetricsRequest
+	(*GetRunMetricsResponse)(nil),  // 1: hivegraph.telemetry.v1.GetRunMetricsResponse
+	(*StreamRunEventsRequest)(nil), // 2: hivegraph.telemetry.v1.StreamRunEventsRequest
+	(*RunEvent)(nil),               // 3: hivegraph.telemetry.v1.RunEvent
 }
 var file_telemetry_v1_telemetry_proto_depIdxs = []int32{
-	0, // 0: loom.telemetry.v1.TelemetryService.GetRunMetrics:input_type -> loom.telemetry.v1.GetRunMetricsRequest
-	2, // 1: loom.telemetry.v1.TelemetryService.StreamRunEvents:input_type -> loom.telemetry.v1.StreamRunEventsRequest
-	1, // 2: loom.telemetry.v1.TelemetryService.GetRunMetrics:output_type -> loom.telemetry.v1.GetRunMetricsResponse
-	3, // 3: loom.telemetry.v1.TelemetryService.StreamRunEvents:output_type -> loom.telemetry.v1.RunEvent
+	0, // 0: hivegraph.telemetry.v1.TelemetryService.GetRunMetrics:input_type -> hivegraph.telemetry.v1.GetRunMetricsRequest
+	2, // 1: hivegraph.telemetry.v1.TelemetryService.StreamRunEvents:input_type -> hivegraph.telemetry.v1.StreamRunEventsRequest
+	1, // 2: hivegraph.telemetry.v1.TelemetryService.GetRunMetrics:output_type -> hivegraph.telemetry.v1.GetRunMetricsResponse
+	3, // 3: hivegraph.telemetry.v1.TelemetryService.StreamRunEvents:output_type -> hivegraph.telemetry.v1.RunEvent
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

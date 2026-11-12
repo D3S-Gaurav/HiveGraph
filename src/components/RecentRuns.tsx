@@ -35,23 +35,23 @@ export function RecentRuns() {
   }, [runStatus, refresh]);
 
   return (
-    <aside className="loom-runs">
-      <div className="loom-runs-head">
+    <aside className="hivegraph-runs">
+      <div className="hivegraph-runs-head">
         <span><ClockIcon size={15} />Recent runs</span>
-        <span className="loom-runs-count">{runs.length}</span>
+        <span className="hivegraph-runs-count">{runs.length}</span>
       </div>
-      <ul className="loom-runs-list">
-        {runs.length === 0 && <li className="loom-runs-empty">No runs yet. Deploy a swarm →</li>}
+      <ul className="hivegraph-runs-list">
+        {runs.length === 0 && <li className="hivegraph-runs-empty">No runs yet. Deploy a swarm →</li>}
         {runs.map((r) => {
           const active = runStatus === "done" && r.id === runId;
           const workers = r.agents.filter(
             (a) => a.agentType !== "planner" && a.agentType !== "validator",
           ).length;
           return (
-            <li key={r.id} className={`loom-run-item${active ? " is-active" : ""}`}>
-              <button className="loom-run-main" onClick={() => loadRun(r)} title={r.goal}>
-                <span className="loom-run-goal">{r.goal}</span>
-                <span className="loom-run-meta">
+            <li key={r.id} className={`hivegraph-run-item${active ? " is-active" : ""}`}>
+              <button className="hivegraph-run-main" onClick={() => loadRun(r)} title={r.goal}>
+                <span className="hivegraph-run-goal">{r.goal}</span>
+                <span className="hivegraph-run-meta">
                   <ClockIcon size={12} />{ago(r.at)}
                   <LayersIcon size={12} />{workers} agents
                   {r.stats ? <span>{(r.stats.ms / 1000).toFixed(0)}s</span> : null}
@@ -59,7 +59,7 @@ export function RecentRuns() {
               </button>
               <button
                 aria-label={`Delete run: ${r.goal}`}
-                className="loom-run-del"
+                className="hivegraph-run-del"
                 title="Delete run"
                 onClick={() => {
                   deleteRun(r.id);

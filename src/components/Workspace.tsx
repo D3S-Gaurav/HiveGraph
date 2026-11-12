@@ -63,9 +63,9 @@ export function Workspace({ userName }: WorkspaceProps) {
     return (
       <>
         <GoalBar />
-        <section className="loom-stage loom-workspace-enter" aria-label="Swarm workspace">
+        <section className="hivegraph-stage hivegraph-workspace-enter" aria-label="Swarm workspace">
           <RecentRuns />
-          <div className="loom-graph">
+          <div className="hivegraph-graph">
             <SwarmGraph />
           </div>
           <SidePanel />
@@ -75,18 +75,18 @@ export function Workspace({ userName }: WorkspaceProps) {
   }
 
   return (
-    <section className="loom-onboarding" aria-labelledby="loom-welcome-title">
-      <div className="loom-onboarding-media" aria-hidden="true">
+    <section className="hivegraph-onboarding" aria-labelledby="hivegraph-welcome-title">
+      <div className="hivegraph-onboarding-media" aria-hidden="true">
         <AmbientRelayVideo />
       </div>
-      <div className="loom-onboarding-scrim" aria-hidden="true" />
-      <div className="loom-onboarding-content">
-        <div className="loom-welcome-copy">
-          <span className="loom-welcome-signal">
+      <div className="hivegraph-onboarding-scrim" aria-hidden="true" />
+      <div className="hivegraph-onboarding-content">
+        <div className="hivegraph-welcome-copy">
+          <span className="hivegraph-welcome-signal">
             <SparklesIcon size={15} />
             {homeMode === "swarm" ? "Swarm ready" : "Direct channel ready"}
           </span>
-          <h1 id="loom-welcome-title">{greeting}</h1>
+          <h1 id="hivegraph-welcome-title">{greeting}</h1>
           <p>
             {homeMode === "swarm"
               ? "Turn one ambitious outcome into parallel, inspected, and verified work."
@@ -94,7 +94,7 @@ export function Workspace({ userName }: WorkspaceProps) {
           </p>
         </div>
 
-        <div className="loom-home-mode" role="tablist" aria-label="Choose how Loom should work">
+        <div className="hivegraph-home-mode" role="tablist" aria-label="Choose how HiveGraph should work">
           <button
             type="button"
             role="tab"
@@ -120,7 +120,7 @@ export function Workspace({ userName }: WorkspaceProps) {
         {homeMode === "swarm" ? <GoalBar mode="onboarding" /> : <QuickChat />}
 
         {homeMode === "swarm" && recent.length ? (
-          <div className="loom-onboarding-recents" aria-label="Continue a recent run">
+          <div className="hivegraph-onboarding-recents" aria-label="Continue a recent run">
             <span>Continue a recent run</span>
             <div>
               {recent.map((run) => {

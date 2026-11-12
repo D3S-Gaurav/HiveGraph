@@ -15,7 +15,7 @@ afterEach(() => {
 
 describe("bounded request parsing", () => {
   it("accepts JSON content types and valid UTF-8", async () => {
-    const request = new Request("https://loom.example/api/test", {
+    const request = new Request("https://hivegraph.example/api/test", {
       method: "POST",
       headers: { "content-type": "application/problem+json; charset=utf-8" },
       body: JSON.stringify({ goal: "Ship it" }),
@@ -25,7 +25,7 @@ describe("bounded request parsing", () => {
   });
 
   it("rejects a declared body larger than the cap before reading it", async () => {
-    const request = new Request("https://loom.example/api/test", {
+    const request = new Request("https://hivegraph.example/api/test", {
       method: "POST",
       headers: { "content-length": "1001" },
       body: "small",
@@ -35,7 +35,7 @@ describe("bounded request parsing", () => {
   });
 
   it("caps chunked bodies even without Content-Length", async () => {
-    const request = new Request("https://loom.example/api/test", {
+    const request = new Request("https://hivegraph.example/api/test", {
       method: "POST",
       body: new ReadableStream({
         start(controller) {
@@ -52,7 +52,7 @@ describe("bounded request parsing", () => {
   });
 
   it("rejects non-JSON media types", async () => {
-    const request = new Request("https://loom.example/api/test", {
+    const request = new Request("https://hivegraph.example/api/test", {
       method: "POST",
       headers: { "content-type": "text/plain" },
       body: "{}",
@@ -64,22 +64,22 @@ describe("bounded request parsing", () => {
 
 describe("trusted mutation origins", () => {
   it("accepts the configured origin", () => {
-    process.env.APP_URL = "https://loom.example";
-    const request = new Request("https://loom.example/api/test", {
-      headers: { origin: "https://loom.example" },
+    process.env.APP_URL = "https://hivegraph.example";
+    const request = new Request("https://hivegraph.example/api/test", {
+      headers: { origin: "https://hivegraph.example" },
     });
     expect(hasTrustedOrigin(request)).toBe(true);
   });
 
   it("rejects cross-origin and origin-less requests", () => {
-    process.env.APP_URL = "https://loom.example";
+    process.env.APP_URL = "https://hivegraph.example";
     expect(
       hasTrustedOrigin(
-        new Request("https://loom.example/api/test", {
+        new Request("https://hivegraph.example/api/test", {
           headers: { origin: "https://attacker.example" },
         }),
       ),
     ).toBe(false);
-    expect(hasTrustedOrigin(new Request("https://loom.example/api/test"))).toBe(false);
+    expect(hasTrustedOrigin(new Request("https://hivegraph.example/api/test"))).toBe(false);
   });
 });

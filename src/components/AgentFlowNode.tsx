@@ -42,28 +42,28 @@ export function AgentFlowNode({ data }: NodeProps<FlowNodeData>) {
   const live = active(data.status);
   return (
     <div
-      className={`loom-node${live ? " is-live" : ""}${data.selected ? " is-selected" : ""}`}
+      className={`hivegraph-node${live ? " is-live" : ""}${data.selected ? " is-selected" : ""}`}
       style={{ "--agent-color": meta.color } as CSSProperties}
     >
-      <Handle type="target" position={Position.Top} className="loom-handle" />
-      <div className="loom-node-head">
-        <span className="loom-agent-glyph">
+      <Handle type="target" position={Position.Top} className="hivegraph-handle" />
+      <div className="hivegraph-node-head">
+        <span className="hivegraph-agent-glyph">
           <AgentIcon type={data.agentType} size={16} />
         </span>
-        <div className="loom-node-titles">
-          <span className="loom-node-type">{meta.label}</span>
-          <span className="loom-node-title">{data.title}</span>
+        <div className="hivegraph-node-titles">
+          <span className="hivegraph-node-type">{meta.label}</span>
+          <span className="hivegraph-node-title">{data.title}</span>
         </div>
         {data.score != null && (
-          <span className="loom-score" title="Validator score">
+          <span className="hivegraph-score" title="Validator score">
             {data.score}/10
           </span>
         )}
       </div>
 
-      <div className="loom-status">
+      <div className="hivegraph-status">
         <span
-          className="loom-dot"
+          className="hivegraph-dot"
           style={{
             background: STATUS_DOT[data.status],
           }}
@@ -71,8 +71,8 @@ export function AgentFlowNode({ data }: NodeProps<FlowNodeData>) {
         {STATUS_LABEL[data.status]}
       </div>
 
-      {data.preview && <div className="loom-preview">{data.preview}</div>}
-      <Handle type="source" position={Position.Bottom} className="loom-handle" />
+      {data.preview && <div className="hivegraph-preview">{data.preview}</div>}
+      <Handle type="source" position={Position.Bottom} className="hivegraph-handle" />
     </div>
   );
 }

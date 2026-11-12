@@ -1,6 +1,6 @@
 # Security policy
 
-Loom handles authenticated sessions, Stripe webhooks, uploaded images, and a
+HiveGraph handles authenticated sessions, Stripe webhooks, uploaded images, and a
 public MCP endpoint, and it feeds untrusted goal text into agents that call
 tools. Reports about any of that are welcome.
 
@@ -8,7 +8,7 @@ tools. Reports about any of that are welcome.
 
 Report privately through GitHub, not in a public issue:
 
-**[Open a private security advisory](https://github.com/D3S-Gaurav/Loom/security/advisories/new)**
+**[Open a private security advisory](https://github.com/D3S-Gaurav/HiveGraph/security/advisories/new)**
 
 Please include the affected version or commit, what an attacker gains, and the
 smallest reproduction you have. A curl command or a failing test is ideal.

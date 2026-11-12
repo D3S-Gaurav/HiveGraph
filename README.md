@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/brand/loom-logo.svg" width="360" alt="HiveGraph" />
+  <img src="public/brand/hivegraph-logo.svg" width="360" alt="HiveGraph" />
 </p>
 
 <h1 align="center">HiveGraph</h1>

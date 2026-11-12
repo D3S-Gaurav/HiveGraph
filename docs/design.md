@@ -1,5 +1,5 @@
 ---
-name: Loom
+name: HiveGraph
 description: A precise neon relay console for live, durable agent swarms.
 colors:
   canvas: "#08070d"
@@ -74,13 +74,13 @@ components:
     padding: "6px 10px"
 ---
 
-# Design System: Loom
+# Design System: HiveGraph
 
 ## Overview
 
 **Creative North Star: "The Neon Relay Console"**
 
-Loom feels like a focused operations instrument in a low-light workspace: quiet at rest, visibly alive when work is moving. Dark tonal layers keep dense orchestration legible; violet identifies intent and selection, while cyan behaves like a live signal traveling between agents. Glass is permitted only where it clarifies hierarchy or preserves spatial context.
+HiveGraph feels like a focused operations instrument in a low-light workspace: quiet at rest, visibly alive when work is moving. Dark tonal layers keep dense orchestration legible; violet identifies intent and selection, while cyan behaves like a live signal traveling between agents. Glass is permitted only where it clarifies hierarchy or preserves spatial context.
 
 The product is precise, energetic, and technically credible. It rejects generic hackathon dashboards, decorative sci-fi chrome, illegible low-contrast glass, and card grids that obscure the core workflow. Familiar controls disappear into the task while the execution graph carries the product's distinctive identity.
 
@@ -98,7 +98,7 @@ The palette is a restrained ultraviolet system with cyan used as live telemetry,
 
 ### Primary
 
-- **Relay Violet:** Primary actions, selected agents, focus, and the Loom waveform.
+- **Relay Violet:** Primary actions, selected agents, focus, and the HiveGraph waveform.
 
 ### Secondary
 
@@ -142,7 +142,7 @@ The palette is a restrained ultraviolet system with cyan used as live telemetry,
 
 ## Elevation
 
-Loom uses tonal layering and precise one-pixel boundaries. Surfaces are flat at rest. A separate pseudo-element may create a low-opacity agent glow during live computation; standard panels and controls do not combine borders with broad decorative shadows.
+HiveGraph uses tonal layering and precise one-pixel boundaries. Surfaces are flat at rest. A separate pseudo-element may create a low-opacity agent glow during live computation; standard panels and controls do not combine borders with broad decorative shadows.
 
 ### Named Rules
 
@@ -202,7 +202,7 @@ Each node combines one consistent SVG role icon, role color, human title, explic
 
 ### Don't:
 
-- **Don't** build generic hackathon dashboards or describe Loom as a hackathon entry.
+- **Don't** build generic hackathon dashboards or describe HiveGraph as a hackathon entry.
 - **Don't** add decorative sci-fi chrome, illegible low-contrast glass, or neon effects without meaning.
 - **Don't** use card grids that obscure the core workflow or nest cards inside cards.
 - **Don't** make the interface require repository knowledge to understand the product.

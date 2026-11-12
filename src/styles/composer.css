@@ -1,6 +1,6 @@
 /* Pre-run composer: scoped additions and overrides for GoalBar + Workspace. */
 
-.loom-sr-only {
+.hivegraph-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -10,7 +10,7 @@
   white-space: nowrap;
 }
 
-.loom-onboarding {
+.hivegraph-onboarding {
   position: relative;
   display: grid;
   min-height: 0;
@@ -23,35 +23,35 @@
   isolation: isolate;
 }
 
-.loom-onboarding-media,
-.loom-onboarding-scrim {
+.hivegraph-onboarding-media,
+.hivegraph-onboarding-scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.loom-onboarding-media {
+.hivegraph-onboarding-media {
   z-index: -3;
   background:
     radial-gradient(580px 280px at 50% 46%, rgb(55 48 110 / 34%), transparent 72%),
     linear-gradient(150deg, rgb(20 17 34 / 88%), rgb(8 7 13 / 96%));
 }
 
-.loom-onboarding-media > video {
+.hivegraph-onboarding-media > video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.32;
 }
 
-.loom-onboarding-scrim {
+.hivegraph-onboarding-scrim {
   z-index: -2;
   background:
     linear-gradient(180deg, rgb(8 7 13 / 44%), rgb(8 7 13 / 74%)),
     radial-gradient(circle at 50% 42%, transparent 20%, rgb(8 7 13 / 64%) 86%);
 }
 
-.loom-onboarding-content {
+.hivegraph-onboarding-content {
   display: flex;
   width: min(1040px, calc(100% - 48px));
   min-width: 0;
@@ -61,14 +61,14 @@
   padding: 34px 0;
 }
 
-.loom-welcome-copy {
+.hivegraph-welcome-copy {
   width: 100%;
   min-width: 0;
   max-width: 720px;
   text-align: center;
 }
 
-.loom-welcome-signal {
+.hivegraph-welcome-signal {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -77,7 +77,7 @@
   font-size: 10px;
 }
 
-.loom-welcome-copy h1 {
+.hivegraph-welcome-copy h1 {
   margin: 10px 0 0;
   color: var(--ink);
   font-size: 34px;
@@ -87,7 +87,7 @@
   text-wrap: balance;
 }
 
-.loom-welcome-copy p {
+.hivegraph-welcome-copy p {
   max-width: 62ch;
   margin: 9px auto 0;
   color: var(--muted);
@@ -96,7 +96,7 @@
   text-wrap: pretty;
 }
 
-.loom-goalbar.is-onboarding {
+.hivegraph-goalbar.is-onboarding {
   width: 100%;
   border-color: var(--line-strong);
   background: rgb(16 14 25 / 90%);
@@ -104,53 +104,53 @@
   backdrop-filter: blur(18px) saturate(112%);
 }
 
-.loom-goalbar.is-onboarding::before {
+.hivegraph-goalbar.is-onboarding::before {
   display: none;
 }
 
-.loom-goalbar.is-onboarding .loom-goalbar-head {
+.hivegraph-goalbar.is-onboarding .hivegraph-goalbar-head {
   margin-bottom: 10px;
 }
 
-.loom-goalbar.is-onboarding .loom-section-icon {
+.hivegraph-goalbar.is-onboarding .hivegraph-section-icon {
   width: 34px;
   height: 34px;
 }
 
-.loom-goalbar.is-onboarding .loom-goalbar-head h2 {
+.hivegraph-goalbar.is-onboarding .hivegraph-goalbar-head h2 {
   font-size: 15px;
 }
 
-.loom-goalbar.is-onboarding .loom-goalbar-head p {
+.hivegraph-goalbar.is-onboarding .hivegraph-goalbar-head p {
   max-width: 68ch;
   color: var(--muted);
   font-size: 11px;
 }
 
-.loom-composer-field {
+.hivegraph-composer-field {
   position: relative;
   min-width: 0;
   flex: 1;
 }
 
-.loom-composer-field .loom-input {
+.hivegraph-composer-field .hivegraph-input {
   display: block;
   height: 100%;
 }
 
-.loom-goalbar.is-onboarding .loom-goalform {
+.hivegraph-goalbar.is-onboarding .hivegraph-goalform {
   gap: 8px;
   padding: 6px;
 }
 
-.loom-goalbar.is-onboarding .loom-input {
+.hivegraph-goalbar.is-onboarding .hivegraph-input {
   min-height: 76px;
   padding: 11px 12px 24px;
   font-size: 15px;
   line-height: 1.55;
 }
 
-.loom-live-example {
+.hivegraph-live-example {
   position: absolute;
   top: 13px;
   right: 46px;
@@ -162,10 +162,10 @@
   pointer-events: none;
   text-overflow: ellipsis;
   white-space: nowrap;
-  animation: loom-example-change 320ms var(--ease-out) both;
+  animation: hivegraph-example-change 320ms var(--ease-out) both;
 }
 
-.loom-character-count {
+.hivegraph-character-count {
   position: absolute;
   right: 10px;
   bottom: 5px;
@@ -175,28 +175,28 @@
   pointer-events: none;
 }
 
-.loom-goalbar:not(.is-onboarding) .loom-character-count,
-.loom-goalbar:not(.is-onboarding) .loom-attachment-tools,
-.loom-goalbar:not(.is-onboarding) .loom-repo-form,
-.loom-goalbar:not(.is-onboarding) .loom-attachments,
-.loom-goalbar:not(.is-onboarding) .loom-mode-row,
-.loom-goalbar:not(.is-onboarding) .loom-attachment-error {
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-character-count,
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-attachment-tools,
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-repo-form,
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-attachments,
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-mode-row,
+.hivegraph-goalbar:not(.is-onboarding) .hivegraph-attachment-error {
   display: none;
 }
 
-.loom-goalbar.is-onboarding .loom-deploy {
+.hivegraph-goalbar.is-onboarding .hivegraph-deploy {
   min-width: 150px;
   flex-basis: 150px;
 }
 
-.loom-attachment-tools {
+.hivegraph-attachment-tools {
   display: flex;
   align-items: center;
   gap: 7px;
   margin-top: 10px;
 }
 
-.loom-file-input {
+.hivegraph-file-input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -205,7 +205,7 @@
   pointer-events: none;
 }
 
-.loom-attachment-button {
+.hivegraph-attachment-button {
   display: inline-flex;
   min-height: 34px;
   align-items: center;
@@ -220,31 +220,31 @@
   transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out);
 }
 
-.loom-attachment-button:hover:not(:disabled),
-.loom-attachment-button:focus-visible {
+.hivegraph-attachment-button:hover:not(:disabled),
+.hivegraph-attachment-button:focus-visible {
   border-color: var(--line-strong);
   background: var(--surface-raised);
   color: var(--ink);
 }
 
-.loom-attachment-button:disabled,
-.loom-attachment-button[aria-disabled="true"] {
+.hivegraph-attachment-button:disabled,
+.hivegraph-attachment-button[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.48;
 }
 
-.loom-file-input:focus-visible + .loom-attachment-button {
+.hivegraph-file-input:focus-visible + .hivegraph-attachment-button {
   outline: 2px solid var(--cyan);
   outline-offset: 3px;
 }
 
-.loom-attachment-limits {
+.hivegraph-attachment-limits {
   margin-left: auto;
   color: var(--subtle);
   font-size: 9px;
 }
 
-.loom-repo-form {
+.hivegraph-repo-form {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -256,7 +256,7 @@
   color: var(--muted);
 }
 
-.loom-repo-form input {
+.hivegraph-repo-form input {
   min-width: 0;
   flex: 1;
   border: 0;
@@ -267,12 +267,12 @@
   font-size: 11px;
 }
 
-.loom-repo-form input::placeholder {
+.hivegraph-repo-form input::placeholder {
   color: var(--subtle);
   opacity: 1;
 }
 
-.loom-repo-form button {
+.hivegraph-repo-form button {
   min-height: 32px;
   border: 0;
   border-radius: var(--radius-sm);
@@ -284,12 +284,12 @@
   font-weight: 750;
 }
 
-.loom-repo-form button:disabled {
+.hivegraph-repo-form button:disabled {
   cursor: not-allowed;
   opacity: 0.45;
 }
 
-.loom-attachments {
+.hivegraph-attachments {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
@@ -298,7 +298,7 @@
   list-style: none;
 }
 
-.loom-attachments li {
+.hivegraph-attachments li {
   display: flex;
   min-width: 0;
   max-width: min(310px, 100%);
@@ -311,7 +311,7 @@
   padding: 7px 7px 7px 9px;
 }
 
-.loom-attachments li > span {
+.hivegraph-attachments li > span {
   display: flex;
   min-width: 0;
   flex: 1;
@@ -319,25 +319,25 @@
   gap: 2px;
 }
 
-.loom-attachments strong,
-.loom-attachments small {
+.hivegraph-attachments strong,
+.hivegraph-attachments small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.loom-attachments strong {
+.hivegraph-attachments strong {
   color: var(--text);
   font-size: 10px;
   font-weight: 650;
 }
 
-.loom-attachments small {
+.hivegraph-attachments small {
   color: var(--muted);
   font-size: 8px;
 }
 
-.loom-attachments li > button {
+.hivegraph-attachments li > button {
   display: grid;
   width: 28px;
   height: 28px;
@@ -350,19 +350,19 @@
   cursor: pointer;
 }
 
-.loom-attachments li > button:hover {
+.hivegraph-attachments li > button:hover {
   background: var(--surface-active);
   color: var(--ink);
 }
 
-.loom-mode-row {
+.hivegraph-mode-row {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-top: 9px;
 }
 
-.loom-mode-selector {
+.hivegraph-mode-selector {
   display: inline-flex;
   flex: 0 0 auto;
   gap: 2px;
@@ -373,7 +373,7 @@
   padding: 3px;
 }
 
-.loom-mode-selector legend {
+.hivegraph-mode-selector legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -381,18 +381,18 @@
   clip: rect(0 0 0 0);
 }
 
-.loom-mode-selector label {
+.hivegraph-mode-selector label {
   position: relative;
   cursor: pointer;
 }
 
-.loom-mode-selector input {
+.hivegraph-mode-selector input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-.loom-mode-selector label > span {
+.hivegraph-mode-selector label > span {
   display: grid;
   min-width: 48px;
   min-height: 28px;
@@ -404,28 +404,28 @@
   transition: background 160ms var(--ease-out), color 160ms var(--ease-out);
 }
 
-.loom-mode-selector input:checked + span {
+.hivegraph-mode-selector input:checked + span {
   background: var(--accent-soft);
   color: #cbbcff;
 }
 
-.loom-mode-selector input:focus-visible + span {
+.hivegraph-mode-selector input:focus-visible + span {
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
 
-.loom-mode-selector input:disabled + span {
+.hivegraph-mode-selector input:disabled + span {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.loom-mode-row > p {
+.hivegraph-mode-row > p {
   margin: 0;
   color: var(--muted);
   font-size: 9px;
 }
 
-.loom-attachment-error {
+.hivegraph-attachment-error {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -435,7 +435,7 @@
   line-height: 1.5;
 }
 
-.loom-launch-relay {
+.hivegraph-launch-relay {
   display: flex;
   min-height: 28px;
   align-items: center;
@@ -449,43 +449,43 @@
   font-size: 9px;
 }
 
-.loom-launch-relay > span {
+.hivegraph-launch-relay > span {
   display: inline-flex;
   gap: 3px;
 }
 
-.loom-launch-relay i {
+.hivegraph-launch-relay i {
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background: currentColor;
-  animation: loom-relay-dot 900ms ease-in-out infinite;
+  animation: hivegraph-relay-dot 900ms ease-in-out infinite;
 }
 
-.loom-launch-relay i:nth-child(2) { animation-delay: 120ms; }
-.loom-launch-relay i:nth-child(3) { animation-delay: 240ms; }
+.hivegraph-launch-relay i:nth-child(2) { animation-delay: 120ms; }
+.hivegraph-launch-relay i:nth-child(3) { animation-delay: 240ms; }
 
-.loom-onboarding-recents {
+.hivegraph-onboarding-recents {
   display: flex;
   width: min(780px, 100%);
   align-items: center;
   gap: 12px;
 }
 
-.loom-onboarding-recents > span {
+.hivegraph-onboarding-recents > span {
   flex: 0 0 auto;
   color: var(--muted);
   font-size: 9px;
 }
 
-.loom-onboarding-recents > div {
+.hivegraph-onboarding-recents > div {
   display: flex;
   min-width: 0;
   flex: 1;
   gap: 7px;
 }
 
-.loom-onboarding-recents button {
+.hivegraph-onboarding-recents button {
   display: flex;
   min-width: 0;
   flex: 1;
@@ -501,12 +501,12 @@
   transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out);
 }
 
-.loom-onboarding-recents button:hover {
+.hivegraph-onboarding-recents button:hover {
   border-color: var(--line-strong);
   background: var(--surface-raised);
 }
 
-.loom-onboarding-recents strong {
+.hivegraph-onboarding-recents strong {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -514,7 +514,7 @@
   font-weight: 630;
 }
 
-.loom-onboarding-recents small {
+.hivegraph-onboarding-recents small {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -522,72 +522,72 @@
   font-size: 8px;
 }
 
-.loom-onboarding-recents small svg:nth-of-type(2) {
+.hivegraph-onboarding-recents small svg:nth-of-type(2) {
   margin-left: 4px;
 }
 
-.loom-workspace-enter {
-  animation: loom-workspace-enter 220ms var(--ease-out) both;
+.hivegraph-workspace-enter {
+  animation: hivegraph-workspace-enter 220ms var(--ease-out) both;
 }
 
-@keyframes loom-example-change {
+@keyframes hivegraph-example-change {
   from { opacity: 0; transform: translateY(3px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes loom-relay-dot {
+@keyframes hivegraph-relay-dot {
   0%, 100% { opacity: 0.35; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1); }
 }
 
-@keyframes loom-workspace-enter {
+@keyframes hivegraph-workspace-enter {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-height: 820px) and (min-width: 821px) {
-  .loom-onboarding-content { gap: 14px; padding: 18px 0; }
-  .loom-welcome-copy h1 { margin-top: 6px; font-size: 28px; }
-  .loom-welcome-copy p { margin-top: 5px; }
-  .loom-goalbar.is-onboarding { padding: 14px; }
-  .loom-goalbar.is-onboarding .loom-goalbar-head { margin-bottom: 10px; }
-  .loom-goalbar.is-onboarding .loom-input { min-height: 68px; }
+  .hivegraph-onboarding-content { gap: 14px; padding: 18px 0; }
+  .hivegraph-welcome-copy h1 { margin-top: 6px; font-size: 28px; }
+  .hivegraph-welcome-copy p { margin-top: 5px; }
+  .hivegraph-goalbar.is-onboarding { padding: 14px; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-goalbar-head { margin-bottom: 10px; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-input { min-height: 68px; }
 }
 
 @media (max-width: 820px) {
-  .loom-onboarding { min-height: calc(100svh - 96px); }
-  .loom-onboarding-content { width: min(680px, calc(100% - 24px)); padding: 28px 0; }
-  .loom-welcome-copy h1 { font-size: 28px; }
-  .loom-goalbar.is-onboarding .loom-goalform { flex-direction: column; }
-  .loom-goalbar.is-onboarding .loom-deploy { width: 100%; min-height: 44px; flex-basis: auto; }
-  .loom-onboarding-recents { align-items: stretch; flex-direction: column; }
-  .loom-onboarding-recents > span { align-self: flex-start; }
+  .hivegraph-onboarding { min-height: calc(100svh - 96px); }
+  .hivegraph-onboarding-content { width: min(680px, calc(100% - 24px)); padding: 28px 0; }
+  .hivegraph-welcome-copy h1 { font-size: 28px; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-goalform { flex-direction: column; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-deploy { width: 100%; min-height: 44px; flex-basis: auto; }
+  .hivegraph-onboarding-recents { align-items: stretch; flex-direction: column; }
+  .hivegraph-onboarding-recents > span { align-self: flex-start; }
 }
 
 @media (max-width: 560px) {
-  .loom-onboarding { border-radius: var(--radius-md); }
-  .loom-onboarding-content { gap: 16px; padding: 22px 0; }
-  .loom-welcome-signal { font-size: 9px; }
-  .loom-welcome-copy h1 { font-size: 24px; }
-  .loom-welcome-copy p { font-size: 11px; }
-  .loom-goalbar.is-onboarding { padding: 11px; }
-  .loom-goalbar.is-onboarding .loom-goalbar-head p { display: block; font-size: 9px; }
-  .loom-goalbar.is-onboarding .loom-key-hint { display: none; }
-  .loom-goalbar.is-onboarding .loom-input { min-height: 84px; font-size: 13px; }
-  .loom-live-example { right: 28px; font-size: 13px; white-space: normal; }
-  .loom-attachment-tools { flex-wrap: wrap; }
-  .loom-attachment-limits { width: 100%; margin-left: 0; }
-  .loom-mode-row { align-items: flex-start; flex-direction: column; gap: 6px; }
-  .loom-mode-selector { width: 100%; }
-  .loom-mode-selector label { flex: 1; }
-  .loom-mode-selector label > span { min-width: 0; }
-  .loom-onboarding-recents > div { width: 100%; flex-direction: column; }
+  .hivegraph-onboarding { border-radius: var(--radius-md); }
+  .hivegraph-onboarding-content { gap: 16px; padding: 22px 0; }
+  .hivegraph-welcome-signal { font-size: 9px; }
+  .hivegraph-welcome-copy h1 { font-size: 24px; }
+  .hivegraph-welcome-copy p { font-size: 11px; }
+  .hivegraph-goalbar.is-onboarding { padding: 11px; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-goalbar-head p { display: block; font-size: 9px; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-key-hint { display: none; }
+  .hivegraph-goalbar.is-onboarding .hivegraph-input { min-height: 84px; font-size: 13px; }
+  .hivegraph-live-example { right: 28px; font-size: 13px; white-space: normal; }
+  .hivegraph-attachment-tools { flex-wrap: wrap; }
+  .hivegraph-attachment-limits { width: 100%; margin-left: 0; }
+  .hivegraph-mode-row { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .hivegraph-mode-selector { width: 100%; }
+  .hivegraph-mode-selector label { flex: 1; }
+  .hivegraph-mode-selector label > span { min-width: 0; }
+  .hivegraph-onboarding-recents > div { width: 100%; flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loom-live-example,
-  .loom-launch-relay i,
-  .loom-workspace-enter {
+  .hivegraph-live-example,
+  .hivegraph-launch-relay i,
+  .hivegraph-workspace-enter {
     animation: none;
   }
 }

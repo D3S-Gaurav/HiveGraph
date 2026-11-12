@@ -8,18 +8,18 @@ export function UserMenu({ name, email }: { name: string; email: string }) {
   const router = useRouter();
 
   return (
-    <details className="loom-user">
+    <details className="hivegraph-user">
       <summary aria-label="Open account menu">
-        <span className="loom-avatar">{name.trim().charAt(0).toUpperCase() || <UserIcon size={16} />}</span>
-        <span className="loom-user-summary">
+        <span className="hivegraph-avatar">{name.trim().charAt(0).toUpperCase() || <UserIcon size={16} />}</span>
+        <span className="hivegraph-user-summary">
           <strong>{name}</strong>
           <small>Account</small>
         </span>
         <ChevronDownIcon size={14} />
       </summary>
-      <div className="loom-popover loom-user-popover">
-        <div className="loom-user-identity">
-          <span className="loom-avatar is-large">{name.trim().charAt(0).toUpperCase() || <UserIcon size={18} />}</span>
+      <div className="hivegraph-popover hivegraph-user-popover">
+        <div className="hivegraph-user-identity">
+          <span className="hivegraph-avatar is-large">{name.trim().charAt(0).toUpperCase() || <UserIcon size={18} />}</span>
           <div><strong>{name}</strong><span>{email}</span></div>
         </div>
         <button

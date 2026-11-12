@@ -126,18 +126,18 @@ export async function syncStripeEvent(input: StripeEventInput) {
       : undefined;
 
     if (input.explicitUserId && customerOwner && customerOwner.user_id !== input.explicitUserId) {
-      throw new Error(`Stripe customer ${stripeCustomerId} belongs to another Loom user.`);
+      throw new Error(`Stripe customer ${stripeCustomerId} belongs to another HiveGraph user.`);
     }
     if (
       input.explicitUserId &&
       explicitOwner?.stripe_customer_id &&
       explicitOwner.stripe_customer_id !== stripeCustomerId
     ) {
-      throw new Error(`Loom user ${input.explicitUserId} is bound to another Stripe customer.`);
+      throw new Error(`HiveGraph user ${input.explicitUserId} is bound to another Stripe customer.`);
     }
 
     const userId = input.explicitUserId ?? customerOwner?.user_id;
-    if (!userId) throw new Error(`No Loom user owns Stripe customer ${stripeCustomerId}.`);
+    if (!userId) throw new Error(`No HiveGraph user owns Stripe customer ${stripeCustomerId}.`);
 
     await client.query(
       `insert into billing_subscription (

@@ -9,7 +9,7 @@ export function normalizeMarkdown(markdown: string) {
 
 export function Markdown({ children }: { children: string }) {
   return (
-    <div className="loom-md">
+    <div className="hivegraph-md">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{normalizeMarkdown(children)}</ReactMarkdown>
     </div>
   );

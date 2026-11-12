@@ -190,20 +190,20 @@ export function SwarmGraph() {
 
   const renderGraph = (expanded: boolean) => (
     <>
-      <div className="loom-graph-head">
-        <div className="loom-graph-heading">
+      <div className="hivegraph-graph-head">
+        <div className="hivegraph-graph-heading">
           <LayersIcon size={16} />
           <span>
-            <strong id={expanded ? "loom-expanded-graph-title" : undefined}>
+            <strong id={expanded ? "hivegraph-expanded-graph-title" : undefined}>
               Execution graph
             </strong>
             <small>{goal || "Dependencies and agent handoffs appear here"}</small>
           </span>
         </div>
-        <div className="loom-graph-actions">
+        <div className="hivegraph-graph-actions">
           {runStatus === "running" ? (
             <span
-              className={`loom-transport is-${transport ?? "pending"}`}
+              className={`hivegraph-transport is-${transport ?? "pending"}`}
               title={
                 transport === "websocket"
                   ? "Live events arrive over the telemetry WebSocket, reconciled against the durable Redis log."
@@ -215,7 +215,7 @@ export function SwarmGraph() {
               {transport === "websocket" ? "WebSocket" : transport === "sse" ? "SSE" : "Connecting"}
             </span>
           ) : null}
-          <span className={`loom-run-state is-${runStatus}`}>
+          <span className={`hivegraph-run-state is-${runStatus}`}>
             <RadioIcon size={13} />
             {runStatus === "running"
               ? "Live"
@@ -229,7 +229,7 @@ export function SwarmGraph() {
             <button
               ref={closeButtonRef}
               aria-label="Close expanded execution graph"
-              className="loom-graph-view-button"
+              className="hivegraph-graph-view-button"
               type="button"
               onClick={() => setIsExpanded(false)}
             >
@@ -241,7 +241,7 @@ export function SwarmGraph() {
             <button
               ref={expandButtonRef}
               aria-haspopup="dialog"
-              className="loom-graph-view-button"
+              className="hivegraph-graph-view-button"
               type="button"
               onClick={() => setIsExpanded(true)}
             >
@@ -253,7 +253,7 @@ export function SwarmGraph() {
       </div>
       <div
         aria-label="Agent execution dependency graph"
-        className={`loom-graph-canvas${runStatus === "running" ? " is-live" : ""}`}
+        className={`hivegraph-graph-canvas${runStatus === "running" ? " is-live" : ""}`}
         role="region"
       >
         <ReactFlow
@@ -272,7 +272,7 @@ export function SwarmGraph() {
           <Controls showInteractive={false} />
         </ReactFlow>
         {rfNodes.length === 0 ? (
-          <div className="loom-graph-empty">
+          <div className="hivegraph-graph-empty">
             <span><SparklesIcon size={22} /></span>
             <h3>The graph is ready</h3>
             <p>Deploy a goal or open a recent run to inspect the swarm.</p>
@@ -288,13 +288,13 @@ export function SwarmGraph() {
       {isExpanded
         ? createPortal(
             <div
-              aria-labelledby="loom-expanded-graph-title"
+              aria-labelledby="hivegraph-expanded-graph-title"
               aria-modal="true"
-              className="loom-graph-overlay"
+              className="hivegraph-graph-overlay"
               role="dialog"
               onKeyDown={handleDialogKeyDown}
             >
-              <div className="loom-graph is-expanded">{renderGraph(true)}</div>
+              <div className="hivegraph-graph is-expanded">{renderGraph(true)}</div>
             </div>,
             document.body,
           )

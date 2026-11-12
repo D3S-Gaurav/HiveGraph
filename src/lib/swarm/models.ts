@@ -6,7 +6,7 @@ const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 export const model = (id: string) => openrouter(id);
 
 // Preferred paid model — auto-used the moment the OpenRouter key has credit.
-const CLAUDE = process.env.LOOM_CLAUDE_MODEL ?? "anthropic/claude-sonnet-4.5";
+const CLAUDE = process.env.HIVEGRAPH_CLAUDE_MODEL ?? "anthropic/claude-sonnet-4.5";
 
 // Free fallback pools (verified live on OpenRouter). Order = preference; the executor
 // walks the list on rate-limit / unavailability so a single 429 never kills a run.
@@ -29,11 +29,11 @@ const FREE_VISION = [
 ];
 
 const ENV_OVERRIDE: Record<Role, string | undefined> = {
-  planner: process.env.LOOM_PLANNER_MODEL,
-  validator: process.env.LOOM_VALIDATOR_MODEL,
-  worker: process.env.LOOM_WORKER_MODEL,
-  synthesizer: process.env.LOOM_SYNTH_MODEL,
-  vision: process.env.LOOM_VISION_MODEL,
+  planner: process.env.HIVEGRAPH_PLANNER_MODEL,
+  validator: process.env.HIVEGRAPH_VALIDATOR_MODEL,
+  worker: process.env.HIVEGRAPH_WORKER_MODEL,
+  synthesizer: process.env.HIVEGRAPH_SYNTH_MODEL,
+  vision: process.env.HIVEGRAPH_VISION_MODEL,
 };
 
 // Cached probe: does this key have paid access? A SUCCESSFUL result (true or
@@ -42,8 +42,8 @@ const ENV_OVERRIDE: Record<Role, string | undefined> = {
 // this process to the free-only chain for its entire lifetime.
 let paidProbe: Promise<boolean> | null = null;
 function hasPaidAccess(): Promise<boolean> {
-  if (process.env.LOOM_FORCE_PAID === "1") return Promise.resolve(true);
-  if (process.env.LOOM_FORCE_FREE === "1") return Promise.resolve(false);
+  if (process.env.HIVEGRAPH_FORCE_PAID === "1") return Promise.resolve(true);
+  if (process.env.HIVEGRAPH_FORCE_FREE === "1") return Promise.resolve(false);
   if (!paidProbe) {
     paidProbe = fetch("https://openrouter.ai/api/v1/key", {
       headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` },

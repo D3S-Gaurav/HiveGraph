@@ -9,22 +9,22 @@ const READ_ONLY = {
   openWorldHint: false,
 } as const;
 
-export function createLoomMcpServer(ownerId: string) {
+export function createHiveGraphMcpServer(ownerId: string) {
   const server = new McpServer(
-    { name: "loom", version: "1.0.0" },
+    { name: "hivegraph", version: "1.0.0" },
     {
       instructions:
-        "Read-only access to this Loom account. Call list_runs to discover retained runs, then " +
+        "Read-only access to this HiveGraph account. Call list_runs to discover retained runs, then " +
         "get_final_deliverable with a runId. Deliverables can include source-linked live web research " +
-        "from Loom's Researcher agent. Run data is available only during Loom's server retention window.",
+        "from HiveGraph's Researcher agent. Run data is available only during HiveGraph's server retention window.",
     },
   );
 
   server.registerTool(
     "list_runs",
     {
-      title: "List Loom runs",
-      description: "List recent runs owned by the connected Loom account.",
+      title: "List HiveGraph runs",
+      description: "List recent runs owned by the connected HiveGraph account.",
       inputSchema: {
         limit: z.number().int().min(1).max(50).optional().describe("Maximum runs to return (1-50)."),
       },
@@ -34,7 +34,7 @@ export function createLoomMcpServer(ownerId: string) {
       const runs = await listOwnedRuns(ownerId, limit ?? 20);
       const output = {
         runs,
-        retentionNote: "Only runs still inside Loom's server retention window are available.",
+        retentionNote: "Only runs still inside HiveGraph's server retention window are available.",
       };
       return {
         content: [{ type: "text", text: JSON.stringify(output, null, 2) }],
@@ -49,7 +49,7 @@ export function createLoomMcpServer(ownerId: string) {
       title: "Get final deliverable",
       description:
         "Read the final Markdown deliverable, including any retained Researcher source links, for " +
-        "one run owned by this Loom account.",
+        "one run owned by this HiveGraph account.",
       inputSchema: {
         runId: z.uuid().describe("Run ID returned by list_runs."),
       },
