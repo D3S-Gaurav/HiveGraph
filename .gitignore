@@ -42,3 +42,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .firecrawl/
+
+# local certificates and keys
+*.crt
+*.key
+*.p12
+
+# agent tooling installed per machine (skills-lock.json records what to reinstall)
+.agents/

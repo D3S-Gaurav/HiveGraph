@@ -10,3 +10,12 @@ coverage
 sessions.md
 progress.md
 imp notes.md
+*.pem
+*.crt
+*.key
+.vercel
+.agents
+.github
+docs
+social-assets
+services
