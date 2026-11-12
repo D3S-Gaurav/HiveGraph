@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  <strong><a href="https://hivegraph.vercel.app">Live demo → hivegraph.vercel.app</a></strong>
+</p>
+
+<p align="center">
   <a href="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml"><img src="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Contributions welcome" /></a>
@@ -104,6 +108,22 @@ HiveGraph provides three execution modes that control DAG size, validation depth
 
 ---
 
+## 🧠 Model Selection
+
+HiveGraph calls models through OpenRouter and picks them per role from an ordered fallback chain, so one rate-limited or retired model never kills a run.
+
+| OpenRouter key | Planner · Validator · Synthesizer | Workers |
+|---|---|---|
+| **Has credit** | Claude first, then the free pool | Free pool (cost control) |
+| **Free tier** | Free pool | Free pool |
+
+- The key's tier is probed once per process; no configuration is needed to switch between the two rows.
+- The free pools live in [`src/lib/swarm/models.ts`](src/lib/swarm/models.ts). OpenRouter retires free models often, so refresh those ids when runs start failing on a free key.
+- Override any role with `HIVEGRAPH_PLANNER_MODEL`, `HIVEGRAPH_VALIDATOR_MODEL`, `HIVEGRAPH_WORKER_MODEL`, `HIVEGRAPH_SYNTH_MODEL` or `HIVEGRAPH_VISION_MODEL`.
+- A free-tier key has a daily request cap on OpenRouter's side, shared by every user of the deployment.
+
+---
+
 ## 🛡️ Security Boundaries
 
 - **Text files** are type-checked and size-bounded before becoming untrusted planner context.
@@ -170,7 +190,7 @@ docs/                       Architecture, design, product, and deployment docs
 
 ### Prerequisites
 
-- **Node.js** 20+
+- **Node.js** 22 (pinned in `package.json` `engines`; CI, Docker and Vercel all use 22)
 - **pnpm** 11
 - **Docker** (for Redis, PostgreSQL, Kafka, Temporal)
 - **OpenRouter API key**
@@ -202,6 +222,8 @@ pnpm dev
 ```
 
 Generate an auth secret: `openssl rand -base64 32`
+
+> **Upgrading from the Loom name?** Every `LOOM_*` environment variable is now `HIVEGRAPH_*`, and the default Kafka topic is `hivegraph.swarm.events`. Rename the keys in your existing `.env.local`, then run `pnpm infra:up`. The Compose project is now named `hivegraph`, so it starts with fresh volumes and creates the topic and database under the new names.
 
 ### Local Services
 
@@ -294,13 +316,46 @@ CI runs both halves on every push and PR: a `web` job (lint, typecheck, test aga
 
 ## 🌍 Deployment
 
-Vercel hosts the Next.js web adapter, but cannot host the Temporal Worker or Go consumer. A full deployment needs:
+The live demo at **[hivegraph.vercel.app](https://hivegraph.vercel.app)** runs the web-only shape below.
+
+### Option A — Web app only (free tier)
+
+Everything runs on Vercel plus three managed free-tier services. Runs execute inside the Vercel function (`direct` mode, 300 s cap per run) and the graph streams over SSE.
+
+| Component | Service used by the demo | Variables |
+|---|---|---|
+| Next.js | Vercel | `APP_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`, `HIVEGRAPH_EXECUTION_MODE=direct` |
+| PostgreSQL | Neon | `DATABASE_URL` |
+| Redis | Upstash (the `rediss://` TCP URL, not the REST URL) | `REDIS_URL` |
+| Kafka | Aiven free tier, SASL enabled | `KAFKA_BROKERS`, `KAFKA_USERNAME`, `KAFKA_PASSWORD`, `KAFKA_SSL=1`, `KAFKA_SASL_MECHANISM=scram-sha-256`, `KAFKA_SWARM_EVENTS_TOPIC`, `KAFKA_CA_CERT` |
+| LLM | OpenRouter (a free-tier key works) | `OPENROUTER_API_KEY` |
+| Billing | Stripe | `STRIPE_SECRET_KEY`, `STRIPE_PRO_PRICE_ID`, `STRIPE_WEBHOOK_SECRET` |
+
+```bash
+vercel link
+# add each variable above to the Production environment
+vercel env add DATABASE_URL production
+vercel deploy --prod
+```
+
+Things that are easy to get wrong:
+
+- **Create the Kafka topic first.** `hivegraph.swarm.events` must exist before the first run; the app does not auto-create it.
+- **Aiven's SASL endpoint uses a project CA.** Download the CA certificate from the Aiven console and set its full PEM as `KAFKA_CA_CERT`, or the broker connection fails with a self-signed certificate error.
+- **The production build validates its environment.** `pnpm vercel-build` refuses to build when a required variable is missing or `APP_URL` is not `https://`, then runs `pnpm db:migrate` before `next build`.
+- **Stripe variables are required by that check.** Without a Stripe account, placeholder values let the build pass; the app then runs with everyone on the Free plan and Checkout disabled.
+- **Aiven powers off idle free services.** Runs are rejected until the Kafka service is powered back on.
+- **`GET /api/health`** reports each dependency, which is the fastest way to confirm a deployment is wired correctly.
+
+### Option B — Full stack
+
+Vercel cannot host the Temporal Worker or the Go consumer. Durable execution and the WebSocket transport need always-on containers:
 
 | Component | Where |
 |---|---|
-| Next.js | Vercel |
-| Temporal Worker | Container service |
-| Go Telemetry | Container service |
+| Next.js | Vercel, with `HIVEGRAPH_EXECUTION_MODE=temporal` |
+| Temporal Worker | Container service (`Dockerfile.temporal`) |
+| Go Telemetry | Container service (`render.yaml` blueprint) |
 | PostgreSQL | Managed service |
 | Redis | Managed service |
 | Kafka | Managed service |

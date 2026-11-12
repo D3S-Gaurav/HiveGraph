@@ -4,6 +4,9 @@
   "description": "Turn one complex goal into a live, durable, validated agent swarm: plan, delegate, execute, validate, synthesize.",
   "private": true,
   "packageManager": "pnpm@11.1.2",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
