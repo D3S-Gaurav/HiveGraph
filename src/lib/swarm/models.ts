@@ -11,20 +11,20 @@ const CLAUDE = process.env.HIVEGRAPH_CLAUDE_MODEL ?? "anthropic/claude-sonnet-4.
 // Free fallback pools (verified live on OpenRouter). Order = preference; the executor
 // walks the list on rate-limit / unavailability so a single 429 never kills a run.
 const FREE_STRUCTURED = [
-  "nvidia/nemotron-nano-9b-v2:free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
+  "nvidia/nemotron-3.5-super-vl:free",
+  "baidu/ernie-5.5-flash-preview:free",
+  "dots-studio/dots-3-note-preview:free",
   "google/gemma-4-31b-it:free",
-  "qwen/qwen3-next-80b-a3b-instruct:free",
 ];
 const FREE_CHAT = [
-  "openai/gpt-oss-120b:free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
+  "nvidia/nemotron-3.5-super-vl:free",
+  "baidu/ernie-5.5-flash-preview:free",
   "google/gemma-4-31b-it:free",
-  "meta-llama/llama-3.3-70b-instruct:free",
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
 ];
 const FREE_VISION = [
+  "nvidia/nemotron-3.5-super-vl:free",
   "google/gemma-4-31b-it:free",
-  "nvidia/nemotron-nano-12b-v2-vl:free",
   "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
 ];
 
