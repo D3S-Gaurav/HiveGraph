@@ -1,376 +1,332 @@
 <p align="center">
-  <img src="public/brand/hivegraph-logo.svg" width="360" alt="HiveGraph" />
+  <img src="public/brand/hivegraph-logo.svg" width="320" alt="HiveGraph" />
 </p>
 
-<h1 align="center">HiveGraph</h1>
+# HiveGraph
 
-<p align="center"><strong>Turn one complex goal into a live, durable, validated agent swarm.</strong></p>
-<p align="center">
-  <em>Plan · Delegate · Execute · Validate · Synthesize</em>
-</p>
+[![CI](https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml/badge.svg)](https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-<p align="center">
-  <strong><a href="https://hivegraph.vercel.app">Live demo → hivegraph.vercel.app</a></strong>
-</p>
+HiveGraph turns one complex goal into a graph of agent tasks and runs it live. A planner breaks the goal into a dependency graph, workers run independent tasks in parallel, a validator reviews each result and can send it back for revision, and a synthesizer merges the approved work into one answer. Every step streams to the browser as it happens, rendered with React Flow.
 
-<p align="center">
-  <a href="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml"><img src="https://github.com/D3S-Gaurav/HiveGraph/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
-  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="Contributions welcome" /></a>
-</p>
+Around that core it has the pieces a real product needs: account sessions, Stripe billing, durable workflows on Temporal, an event log in Redis and Kafka, a Go telemetry service, and an MCP server for reading results from a terminal.
 
----
+**Live demo:** [hivegraph.vercel.app](https://hivegraph.vercel.app)
 
-## 🧬 What is HiveGraph?
+## Contents
 
-**HiveGraph** is a production-oriented orchestration workspace that decomposes a single complex goal into a **Directed Acyclic Graph (DAG)** of specialized agent tasks. A planner creates the task graph, workers execute ready tasks in parallel, a mode-aware validator can request focused revisions, and a synthesizer produces the final answer — all while **React Flow** renders every event in real time.
+- [Features](#features)
+- [How it works](#how-it-works)
+- [Execution modes](#execution-modes)
+- [Model selection](#model-selection)
+- [Security boundaries](#security-boundaries)
+- [Tech stack](#tech-stack)
+- [Repository layout](#repository-layout)
+- [Local setup](#local-setup)
+- [Live event transport](#live-event-transport)
+- [Plans and billing](#plans-and-billing)
+- [Commands](#commands)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-It's not just a demo. HiveGraph pairs a focused product experience with **production-grade identity, billing, durable workflows, streaming state, distributed infrastructure, and observability**.
+## Features
 
----
+- **Planning.** An LLM planner turns the goal into a typed, dependency-aware task graph. Its structured output is validated with Zod before anything runs.
+- **Parallel execution.** Tasks whose dependencies are met run at the same time instead of one after another.
+- **Validation and revision.** A validator scores each result. A rejected result goes back to its worker with specific feedback; how many revisions are allowed depends on the mode.
+- **Live research.** Researcher agents can run bounded web searches through Firecrawl and keep the source links. Without a Firecrawl key they say that live search is unavailable rather than inventing sources.
+- **Live graph.** The execution graph updates as events arrive, over a WebSocket when the telemetry service is available and over SSE otherwise.
+- **Accounts and billing.** Email and password sessions with Better Auth on PostgreSQL. Stripe Checkout, signed webhooks and the Customer Portal for the Pro plan.
+- **Durable workflows.** In `temporal` mode, long runs move out of the HTTP request into a Temporal worker, with heartbeats, cancellation and recovery after a crash.
+- **Telemetry service.** A separate Go service consumes the Kafka event stream and serves it over gRPC, a WebSocket and Prometheus metrics.
+- **Image attachments.** Images are stored in Cloudinary as authenticated assets. A vision model turns them into a text description, and only that text enters the run.
+- **MCP server.** A read-only, account-scoped MCP endpoint lets Codex or Claude Code list your runs and fetch their final Markdown deliverables.
 
-## ✨ Key Features
-
-| Feature | Description |
-|---|---|
-| 🧠 **AI-Powered Planning** | An LLM planner decomposes goals into a typed, dependency-aware task DAG with Zod-validated structured output. |
-| ⚡ **Parallel Execution** | Independent tasks in the DAG run concurrently — the swarm gets latency benefits over serial task lists. |
-| ✅ **Mode-Aware Validation** | A validator agent reviews each task output. Rejected outputs get concrete feedback for self-correction (revision depth is mode-controlled). |
-| 🔬 **Live Research** | Researcher agents use bounded Firecrawl web search, preserve source links, and state clearly when live search is unavailable. |
-| 📊 **Real-Time Visualization** | React Flow renders the live execution graph. Zustand drives the state. WebSocket-first with SSE fallback. |
-| 🔐 **Production Auth & Billing** | Better Auth email/password sessions backed by PostgreSQL. Stripe Checkout, signed webhooks, Customer Portal, and entitlement projection. |
-| 🏗️ **Durable Workflows** | Temporal moves long-running orchestration out of the HTTP process. Heartbeats, cancellation, and crash recovery. |
-| 📡 **Polyglot Telemetry** | A standalone Go service consumes Kafka events and fans them out via gRPC, WebSocket, and Prometheus metrics. |
-| 🖼️ **Image Understanding** | Cloudinary stores attached images as authenticated assets. A vision model derives instruction-resistant text context. |
-| 🤖 **MCP Server** | A read-only, account-scoped Streamable HTTP MCP server lets Codex or Claude Code discover runs and retrieve final Markdown deliverables. |
-
----
-
-## 🏛️ Architecture Overview
+## How it works
 
 ```text
 Browser
   │ authenticated POST /api/swarm { goal, mode, attachments }
   ▼
-Next.js Route Adapter
-  ├─ session + origin + bounded input + infrastructure checks
-  ├─ PostgreSQL plan lookup → Redis user quota
+Next.js route handler
+  ├─ session, origin, input size and infrastructure checks
+  ├─ plan lookup in PostgreSQL, then the user's quota in Redis
   ├─ text file ─────────────────────────────┐
   ├─ public GitHub repo → fixed GitHub API ─┤→ untrusted reference context
   ├─ image → authenticated Cloudinary asset ┘→ vision-derived text
-  └─ starts Temporal workflow
+  └─ starts the run (in process, or as a Temporal workflow)
           │
           ▼
-Temporal Worker → swarm Activity → planner → DAG workers → validators → synthesizer
-          │                         │
-          │                         ├─ OpenRouter through Vercel AI SDK
-          │                         └─ Zod structured-output validation
+planner → parallel workers → validator → synthesizer
+          │                    │
+          │                    ├─ models via OpenRouter and the Vercel AI SDK
+          │                    └─ Zod validation of structured output
           ▼
-Redis event stream ──SSE (fallback + durable replay)──▶ Zustand ──▶ React Flow
-          │                                                          ▲
-          └─ Kafka ──▶ Go telemetry consumer ──┬─▶ /metrics          │  (Prometheus)
-                                               ├─▶ gRPC :9090       │  (StreamRunEvents)
-                                               └─▶ wss://.../ws ────┘  (primary browser transport)
+Redis event stream ──SSE (fallback and durable replay)──▶ Zustand ──▶ React Flow
+          │                                                            ▲
+          └─ Kafka ──▶ Go telemetry consumer ──┬─▶ /metrics            │  Prometheus
+                                               ├─▶ gRPC :9090          │  StreamRunEvents
+                                               └─▶ wss://…/ws ─────────┘  preferred browser transport
 
 Codex / Claude Code ──bearer token──▶ /api/mcp
                                       ├─ list_runs
                                       └─ get_final_deliverable
 ```
 
-> The planner, worker, validator, and synthesizer are **code roles**, not separate servers. TypeScript controls their order and data flow; the LLM supplies language reasoning.
+The planner, workers, validator and synthesizer are roles in the code, not separate servers. TypeScript decides their order and passes data between them; the model supplies the language work.
 
----
+## Execution modes
 
-## 🎛️ Execution Modes
+Three modes trade speed and cost against depth:
 
-HiveGraph provides three execution modes that control DAG size, validation depth, and token budgets:
-
-| Mode | DAG Size | Revision Budget | Repeated-Context Policy | Best Fit |
+| Mode | Tasks in the graph | Revisions allowed | Context budget | Best for |
 |---|---:|---:|---|---|
-| **Low** | 1–2 tasks | 0 revisions | smallest budgets | fast, concise work |
-| **Auto** | 2–4 tasks | up to 1 revision | balanced budgets | normal adaptive use |
-| **Max** | 4–6 tasks | up to 2 revisions | largest bounded context | deep, multi-angle work |
+| Low | 1–2 | 0 | smallest | quick, concise answers |
+| Auto | 2–4 | up to 1 | balanced | everyday use |
+| Max | 4–6 | up to 2 | largest | deep, multi-angle work |
 
-> Max is deliberately more expensive and slower, but **never unbounded**. Every mode has deterministic caps on material repeated between model calls.
+Max is slower and costs more, but it is still bounded: every mode has fixed caps on how much text is passed between model calls.
 
-### Token-Efficiency Design
+### Context budgets
 
-| Mode | Upstream Handoff | Revision Feedback | Worker → Validation | Synthesis Corpus |
+| Mode | Upstream handoff | Revision feedback | Worker to validator | Synthesis input |
 |---|---:|---:|---:|---:|
 | Low | 4,000 chars | 1,000 chars | 8,000 chars | 12,000 chars |
 | Auto | 8,000 chars | 2,000 chars | 12,000 chars | 24,000 chars |
 | Max | 16,000 chars | 4,000 chars | 24,000 chars | 48,000 chars |
 
-- Upstream blackboard outputs, validator inputs, revision feedback, and the synthesis corpus each have a **mode-specific character budget**
-- Labeled sections share a budget fairly — one oversized worker cannot crowd out every other specialist
-- Compaction preserves section labels plus opening and conclusion, with an explicit truncation marker
-- Attachment data is prepared once for planning, not copied raw into every worker prompt
+- Each kind of repeated context has its own budget per mode.
+- Labelled sections share a budget fairly, so one long worker output cannot crowd out the others.
+- When text is trimmed, the section labels, opening and conclusion are kept and a truncation marker is added.
+- Attachments are prepared once for planning and are not copied raw into every worker prompt.
 
----
+## Model selection
 
-## 🧠 Model Selection
+Models are called through OpenRouter. Each role walks an ordered list of models and moves to the next on a rate limit or an unavailable model, so one failing model does not stop a run.
 
-HiveGraph calls models through OpenRouter and picks them per role from an ordered fallback chain, so one rate-limited or retired model never kills a run.
-
-| OpenRouter key | Planner · Validator · Synthesizer | Workers |
+| OpenRouter key | Planner, validator, synthesizer | Workers |
 |---|---|---|
-| **Has credit** | Claude first, then the free pool | Free pool (cost control) |
-| **Free tier** | Free pool | Free pool |
+| Has credit | Claude first, then the free pool | Free pool, to control cost |
+| Free tier | Free pool | Free pool |
 
-- The key's tier is probed once per process; no configuration is needed to switch between the two rows.
-- The free pools live in [`src/lib/swarm/models.ts`](src/lib/swarm/models.ts). OpenRouter retires free models often, so refresh those ids when runs start failing on a free key.
-- Override any role with `HIVEGRAPH_PLANNER_MODEL`, `HIVEGRAPH_VALIDATOR_MODEL`, `HIVEGRAPH_WORKER_MODEL`, `HIVEGRAPH_SYNTH_MODEL` or `HIVEGRAPH_VISION_MODEL`.
-- A free-tier key has a daily request cap on OpenRouter's side, shared by every user of the deployment.
+- The key's tier is checked once per process; nothing needs configuring to switch between the two rows.
+- The free model lists are in [`src/lib/swarm/models.ts`](src/lib/swarm/models.ts). OpenRouter retires free models often, so update those ids if runs start failing on a free key.
+- Any role can be pinned with `HIVEGRAPH_PLANNER_MODEL`, `HIVEGRAPH_VALIDATOR_MODEL`, `HIVEGRAPH_WORKER_MODEL`, `HIVEGRAPH_SYNTH_MODEL` or `HIVEGRAPH_VISION_MODEL`.
+- A free-tier key has a daily request cap on OpenRouter's side, shared by everyone using the deployment.
 
----
+## Security boundaries
 
-## 🛡️ Security Boundaries
+- **Text files** are type-checked and size-limited, and treated as untrusted context for the planner.
+- **GitHub attachments** accept only an exact public `https://github.com/owner/repository` URL. HiveGraph builds the `api.github.com` request itself, so users cannot make the server fetch an arbitrary host.
+- **Images** are validated, stored with Cloudinary's `authenticated` delivery type, and described by a vision model instructed to treat any text in the image as data.
+- **Raw image data** is never written to Redis, Kafka or Temporal. Only the derived text description enters the run.
 
-- **Text files** are type-checked and size-bounded before becoming untrusted planner context.
-- **GitHub attachments** accept only exact public `https://github.com/owner/repository` URLs. HiveGraph constructs the `api.github.com` request itself — no user-controlled host fetching.
-- **Image attachments** are validated, stored with Cloudinary's `authenticated` delivery type, and described by a vision model told to treat visible instructions as data.
-- **Raw base64 image data** is never written to Redis run state, Kafka events, or Temporal input. Only the derived text description enters orchestration.
-
----
-
-## 🧱 Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | Next.js 16, React 19, React Flow, Zustand, Tailwind CSS |
-| **AI / LLM** | Vercel AI SDK, OpenRouter, Zod structured outputs |
-| **Auth** | Better Auth (email/password + PostgreSQL sessions) |
-| **Billing** | Stripe Checkout, webhooks, Customer Portal |
-| **Orchestration** | Temporal (durable workflows, activities, heartbeats) |
-| **State & Cache** | Redis (run state, event replay, rate limits via Lua scripts) |
-| **Event Streaming** | Kafka (versioned swarm envelopes, 6-partition topic) |
-| **Telemetry** | Go service (gRPC, WebSocket, Prometheus /metrics) |
-| **Media** | Cloudinary (authenticated image storage) |
-| **Research** | Firecrawl (bounded web search with source preservation) |
-| **Database** | PostgreSQL (users, sessions, billing projection) |
-| **Testing** | Vitest (TS), Go test with `-race` |
+| Frontend | Next.js 16, React 19, React Flow, Zustand, Tailwind CSS |
+| Models | Vercel AI SDK, OpenRouter, Zod structured output |
+| Auth | Better Auth (email and password, PostgreSQL sessions) |
+| Billing | Stripe Checkout, webhooks, Customer Portal |
+| Orchestration | Temporal (workflows, activities, heartbeats) |
+| State | Redis (run state, event replay, rate limits in Lua) |
+| Event stream | Kafka (versioned event envelopes, 6-partition topic) |
+| Telemetry | Go (gRPC, WebSocket, Prometheus `/metrics`) |
+| Media | Cloudinary (authenticated image storage) |
+| Research | Firecrawl (bounded web search) |
+| Database | PostgreSQL (users, sessions, billing state, MCP tokens) |
+| Testing | Vitest; Go tests with `-race` |
 
----
+## Repository layout
 
-## 📂 Repository Layout
-
-```
+```text
 src/
-├── app/                    Next.js routes and page composition
-│   ├── api/                API routes (swarm, billing, chat, MCP, auth)
-│   └── sign-in/            Authentication page
-├── components/             React components (SwarmGraph, GoalBar, SidePanel, etc.)
+├── app/                   Next.js routes and pages
+│   ├── api/               API routes: swarm, chat, billing, mcp, auth, health
+│   └── sign-in/           Sign-in page
+├── components/            React components (SwarmGraph, GoalBar, SidePanel, …)
 ├── lib/
-│   ├── swarm/              Core orchestration domain + application services
-│   │   ├── orchestrator.ts     DAG execution engine
-│   │   ├── planner.ts          LLM-powered task decomposition
-│   │   ├── worker.ts           Specialist agent execution
-│   │   ├── validator.ts        Output quality gate
-│   │   ├── bus.ts              Event bus (Redis + Kafka)
-│   │   ├── runStream.ts        Client-side stream management
-│   │   └── tokenBudget.ts      Mode-aware context compaction
-│   ├── billing/            Plans, Stripe gateway, entitlement repository
-│   ├── mcp/                Model Context Protocol server + token service
-│   ├── media/              Authenticated Cloudinary image storage adapter
-│   ├── research/           Firecrawl web search integration
-│   ├── auth.ts             Identity and shared authentication policy
-│   └── store.ts            Zustand global store
-├── styles/                 CSS modules (foundation, workspace, auth, etc.)
-└── temporal/               Temporal workflow/worker process boundary
+│   ├── swarm/             Orchestration
+│   │   ├── orchestrator.ts    runs the task graph
+│   │   ├── planner.ts         turns the goal into tasks
+│   │   ├── worker.ts          runs one specialist task
+│   │   ├── validator.ts       reviews results
+│   │   ├── bus.ts             event bus (Redis and Kafka)
+│   │   ├── runStream.ts       client-side event stream handling
+│   │   └── tokenBudget.ts     per-mode context limits
+│   ├── billing/           plans, Stripe, entitlements
+│   ├── mcp/               MCP server and token service
+│   ├── media/             Cloudinary image storage
+│   ├── research/          Firecrawl search
+│   ├── auth.ts            authentication setup
+│   └── store.ts           Zustand store
+├── styles/                stylesheets (foundation, workspace, auth, …)
+└── temporal/              Temporal workflow and worker
 
-services/telemetry/         Independent Go Kafka consumer → gRPC + WS + Prometheus
-proto/telemetry/v1/         Protocol Buffer contracts for the gRPC surface
-scripts/                    Idempotent database migrations + build scripts
-docs/                       Architecture, design, product, and deployment docs
+services/telemetry/        Go service: Kafka consumer serving gRPC, WebSocket and Prometheus
+proto/telemetry/v1/        Protocol Buffer definitions for the gRPC API
+scripts/                   database migrations and the Vercel build script
+docs/                      architecture, design, product and deployment notes
 ```
 
----
-
-## 🚀 Local Setup
+## Local setup
 
 ### Prerequisites
 
-- **Node.js** 22 (pinned in `package.json` `engines`; CI, Docker and Vercel all use 22)
-- **pnpm** 11
-- **Docker** (for Redis, PostgreSQL, Kafka, Temporal)
-- **OpenRouter API key**
-- Firecrawl API key *(optional — enables live Researcher web search)*
+- Node.js 22 (pinned in `package.json`; CI, Docker and Vercel all use 22)
+- pnpm 11
+- Docker, for Redis, PostgreSQL, Kafka and Temporal
+- An OpenRouter API key
+- Optional: a Firecrawl API key, for live web search
 
-### Quick Start
+### Quick start
 
 ```bash
-# Install dependencies
 pnpm install
 
-# Set up environment
 cp .env.example .env.local
-# Fill in: OPENROUTER_API_KEY, BETTER_AUTH_SECRET
-# Optional: FIRECRAWL_API_KEY, CLOUDINARY_*, STRIPE_*
+# required: OPENROUTER_API_KEY, BETTER_AUTH_SECRET
+# optional: FIRECRAWL_API_KEY, CLOUDINARY_*, STRIPE_*
 
-# Start infrastructure
-pnpm infra:up
-
-# Run database migrations
-pnpm db:migrate
-
-# Start the Temporal worker (in a second terminal)
-pnpm temporal:worker
-
-# Start the dev server
-pnpm dev
-# → http://localhost:3000
+pnpm infra:up          # start Redis, PostgreSQL, Kafka, Temporal and telemetry
+pnpm db:migrate        # create the auth, billing and MCP tables
+pnpm temporal:worker   # in a second terminal
+pnpm dev               # http://localhost:3000
 ```
 
-Generate an auth secret: `openssl rand -base64 32`
+Generate an auth secret with `openssl rand -base64 32`.
 
-> **Upgrading from the Loom name?** Every `LOOM_*` environment variable is now `HIVEGRAPH_*`, and the default Kafka topic is `hivegraph.swarm.events`. Rename the keys in your existing `.env.local`, then run `pnpm infra:up`. The Compose project is now named `hivegraph`, so it starts with fresh volumes and creates the topic and database under the new names.
+**Upgrading from the Loom name:** every `LOOM_*` environment variable is now `HIVEGRAPH_*`, and the default Kafka topic is `hivegraph.swarm.events`. Rename the keys in your `.env.local`, then run `pnpm infra:up`. The Compose project is now called `hivegraph`, so it starts with fresh volumes and creates the topic and database under the new names.
 
-### Local Services
+### Local services
 
 | Service | Address | Purpose |
 |---|---|---|
-| Next.js | `http://localhost:3000` | UI, auth, API, SSE fallback + durable replay |
-| Temporal UI | `http://localhost:8233` | Workflow inspection |
-| Go Telemetry HTTP | `http://localhost:9091/metrics` | Prometheus metrics, `/healthz` |
-| Go Telemetry WS | `ws://localhost:9091/ws` | Primary live event transport for the UI |
-| Go Telemetry gRPC | `localhost:9090` | `TelemetryService`, health, reflection |
-| PostgreSQL | `localhost:5432` | Users, sessions, billing |
-| Redis | `localhost:6379` | State, replay, limits |
-| Kafka | `localhost:9092` | Event stream |
+| Next.js | `http://localhost:3000` | UI, auth, API, SSE and replay |
+| Temporal UI | `http://localhost:8233` | inspect workflows |
+| Telemetry HTTP | `http://localhost:9091/metrics` | Prometheus metrics and `/healthz` |
+| Telemetry WebSocket | `ws://localhost:9091/ws` | live events for the browser |
+| Telemetry gRPC | `localhost:9090` | `TelemetryService`, health, reflection |
+| PostgreSQL | `localhost:5432` | users, sessions, billing |
+| Redis | `localhost:6379` | run state, replay, rate limits |
+| Kafka | `localhost:9092` | event stream |
 
----
+## Live event transport
 
-## 📡 Real-Time Event Transport
-
-### Transport Selection
-
-| `NEXT_PUBLIC_TELEMETRY_WS_URL` | Live Transport |
+| `NEXT_PUBLIC_TELEMETRY_WS_URL` | Transport |
 |---|---|
-| **set** | WebSocket (with automatic fallback to SSE) |
-| **empty** | SSE only |
+| set | WebSocket, falling back to SSE |
+| empty | SSE only |
 
-The graph header shows which transport is actually live — the choice is **observable in the product**, not asserted in a diagram.
+The graph header shows which transport is actually in use.
 
-### Why WebSocket + SSE Fallback?
+- **WebSocket** is preferred because it receives events straight from the Kafka fan-out, while SSE polls Redis every 150 ms.
+- **SSE** is the fallback because Vercel's serverless functions cannot hold a socket open for a whole run, and some corporate proxies block WebSocket upgrades.
+- **A durable Redis log** sits under both. Every frame carries an increasing `sequence` number; a gap triggers a replay from the Redis-backed endpoint, and a replayed event that was already applied is ignored.
 
-- **WebSocket** is preferred because it pushes events straight off the Kafka fan-out (zero-latency), while SSE polls Redis at 150ms intervals.
-- **SSE** is the fallback because Vercel's serverless functions cannot hold a long-lived socket open, and corporate proxies may refuse `Upgrade`.
-- **A durable Redis log** sits underneath both. Every frame carries a monotonic `sequence`; gaps trigger replay from the Redis-backed endpoint. A replayed event is a no-op.
+The Go service reads each Kafka partition once and fans events out through an in-process hub. Each subscriber has a 256-event buffer and sends never block. A subscriber that fills its buffer is dropped instead of waited on, so one frozen browser tab cannot stall telemetry for everyone else.
 
-### Fan-Out Architecture
+## Plans and billing
 
-The Go telemetry consumer reads each Kafka partition once and fans events out through an in-process hub. Each subscriber owns a **256-event buffered channel**; `hub.publish` sends non-blocking. A subscriber that fills its buffer is **evicted** (not waited on) to prevent blocking the Kafka poll loop — one frozen browser tab will never take telemetry down for everyone.
+| Plan | Runs per hour |
+|---|---|
+| Free | 3, including at most 1 in Max mode |
+| Pro | 100 |
 
----
-
-## 💳 Billing & Plans
-
-| Plan | Rate Limit | Max Runs |
-|---|---|---|
-| **Free** | 3 runs/hour (at most 1 Max run/hour) | — |
-| **Pro** | 100 runs/hour | — |
-
-Limits are atomically enforced in Redis by user ID. Stripe-hosted surfaces ensure card data never enters this application.
+Limits are enforced atomically in Redis per user. Card details are handled entirely on Stripe's hosted pages and never reach this application.
 
 <details>
-<summary><strong>Stripe Setup</strong></summary>
+<summary>Stripe setup</summary>
 
-1. Create a Stripe Product and recurring Price.
+1. Create a Stripe product with a recurring price.
 2. Set `STRIPE_SECRET_KEY` and `STRIPE_PRO_PRICE_ID`.
-3. Configure a webhook at `https://your-domain/api/billing/webhook` for:
+3. Add a webhook at `https://your-domain/api/billing/webhook` for these events:
    - `checkout.session.completed`
    - `customer.subscription.created`
    - `customer.subscription.updated`
    - `customer.subscription.deleted`
-4. Set its signing secret as `STRIPE_WEBHOOK_SECRET`.
+4. Set the webhook's signing secret as `STRIPE_WEBHOOK_SECRET`.
 5. Enable the Stripe Customer Portal and set `APP_URL`.
 
-For local webhook testing:
+To test webhooks locally:
+
 ```bash
 stripe listen --forward-to localhost:3000/api/billing/webhook
 ```
+
 </details>
 
----
-
-## 🧪 Commands
+## Commands
 
 | Command | Purpose |
 |---|---|
-| `pnpm dev` | Start development server |
-| `pnpm typecheck` | TypeScript verification |
-| `pnpm lint` | ESLint checks |
-| `pnpm test` | Unit/integration test suite |
-| `pnpm db:migrate` | Better Auth + billing + MCP schemas |
-| `pnpm infra:up` | Start local dependencies |
-| `pnpm infra:full` | Start dependencies + containerized Worker |
-| `pnpm infra:topic` | Inspect the six-partition Kafka topic |
-| `pnpm infra:logs` | Follow infrastructure logs |
-| `pnpm infra:down` | Stop containers, preserve volumes |
-| `pnpm infra:reset` | Remove containers and local data volumes |
-| `go test -race ./...` | Telemetry service tests (run in `services/telemetry`) |
+| `pnpm dev` | start the development server |
+| `pnpm typecheck` | TypeScript check |
+| `pnpm lint` | ESLint |
+| `pnpm test` | unit and integration tests |
+| `pnpm db:migrate` | create or update the auth, billing and MCP tables |
+| `pnpm infra:up` | start local dependencies |
+| `pnpm infra:full` | start dependencies plus a containerised worker |
+| `pnpm infra:topic` | describe the Kafka topic |
+| `pnpm infra:logs` | follow infrastructure logs |
+| `pnpm infra:down` | stop containers and keep their data |
+| `pnpm infra:reset` | remove containers and their data |
+| `go test -race ./...` | telemetry tests (run inside `services/telemetry`) |
 
-CI runs both halves on every push and PR: a `web` job (lint, typecheck, test against a real Redis service container) and a `telemetry` job (go vet, go build, go test -race).
+CI runs on every push and pull request: a `web` job (lint, typecheck, and tests against a real Redis container) and a `telemetry` job (`go vet`, `go build`, `go test -race`).
 
----
+## Deployment
 
-## 🌍 Deployment
+The live demo runs option A below.
 
-The live demo at **[hivegraph.vercel.app](https://hivegraph.vercel.app)** runs the web-only shape below.
+### Option A: web app only, on free tiers
 
-### Option A — Web app only (free tier)
-
-Everything runs on Vercel plus three managed free-tier services. Runs execute inside the Vercel function (`direct` mode, 300 s cap per run) and the graph streams over SSE.
+Everything runs on Vercel plus three managed free-tier services. Runs execute inside the Vercel function (`direct` mode, capped at 300 seconds per run), and the graph streams over SSE.
 
 | Component | Service used by the demo | Variables |
 |---|---|---|
 | Next.js | Vercel | `APP_URL`, `BETTER_AUTH_URL`, `BETTER_AUTH_SECRET`, `HIVEGRAPH_EXECUTION_MODE=direct` |
 | PostgreSQL | Neon | `DATABASE_URL` |
 | Redis | Upstash (the `rediss://` TCP URL, not the REST URL) | `REDIS_URL` |
-| Kafka | Aiven free tier, SASL enabled | `KAFKA_BROKERS`, `KAFKA_USERNAME`, `KAFKA_PASSWORD`, `KAFKA_SSL=1`, `KAFKA_SASL_MECHANISM=scram-sha-256`, `KAFKA_SWARM_EVENTS_TOPIC`, `KAFKA_CA_CERT` |
-| LLM | OpenRouter (a free-tier key works) | `OPENROUTER_API_KEY` |
+| Kafka | Aiven free tier with SASL enabled | `KAFKA_BROKERS`, `KAFKA_USERNAME`, `KAFKA_PASSWORD`, `KAFKA_SSL=1`, `KAFKA_SASL_MECHANISM=scram-sha-256`, `KAFKA_SWARM_EVENTS_TOPIC`, `KAFKA_CA_CERT` |
+| Models | OpenRouter (a free-tier key works) | `OPENROUTER_API_KEY` |
 | Billing | Stripe | `STRIPE_SECRET_KEY`, `STRIPE_PRO_PRICE_ID`, `STRIPE_WEBHOOK_SECRET` |
 
 ```bash
 vercel link
-# add each variable above to the Production environment
-vercel env add DATABASE_URL production
+vercel env add DATABASE_URL production   # repeat for each variable above
 vercel deploy --prod
 ```
 
 Things that are easy to get wrong:
 
-- **Create the Kafka topic first.** `hivegraph.swarm.events` must exist before the first run; the app does not auto-create it.
-- **Aiven's SASL endpoint uses a project CA.** Download the CA certificate from the Aiven console and set its full PEM as `KAFKA_CA_CERT`, or the broker connection fails with a self-signed certificate error.
-- **The production build validates its environment.** `pnpm vercel-build` refuses to build when a required variable is missing or `APP_URL` is not `https://`, then runs `pnpm db:migrate` before `next build`.
-- **Stripe variables are required by that check.** Without a Stripe account, placeholder values let the build pass; the app then runs with everyone on the Free plan and Checkout disabled.
-- **Aiven powers off idle free services.** Runs are rejected until the Kafka service is powered back on.
-- **`GET /api/health`** reports each dependency, which is the fastest way to confirm a deployment is wired correctly.
+- **Create the Kafka topic first.** `hivegraph.swarm.events` must exist before the first run; the app does not create it.
+- **Aiven signs its SASL endpoint with a project CA.** Download the CA certificate from the Aiven console and set the full PEM as `KAFKA_CA_CERT`, or the connection fails with a self-signed certificate error.
+- **The production build checks its environment.** `pnpm vercel-build` stops if a required variable is missing or `APP_URL` is not `https://`, then runs `pnpm db:migrate` before `next build`.
+- **That check requires the Stripe variables.** Without a Stripe account, placeholder values let the build pass; everyone then stays on the Free plan and checkout is disabled.
+- **Aiven powers off idle free services.** New runs are rejected until the Kafka service is turned back on.
+- **`GET /api/health`** reports each dependency and is the quickest way to confirm a deployment is wired correctly.
 
-### Option B — Full stack
+### Option B: full stack
 
-Vercel cannot host the Temporal Worker or the Go consumer. Durable execution and the WebSocket transport need always-on containers:
+Vercel cannot host the Temporal worker or the Go service. Durable execution and the WebSocket transport need always-on containers:
 
 | Component | Where |
 |---|---|
 | Next.js | Vercel, with `HIVEGRAPH_EXECUTION_MODE=temporal` |
-| Temporal Worker | Container service (`Dockerfile.temporal`) |
-| Go Telemetry | Container service (`render.yaml` blueprint) |
-| PostgreSQL | Managed service |
-| Redis | Managed service |
-| Kafka | Managed service |
+| Temporal worker | a container service (`Dockerfile.temporal`) |
+| Go telemetry | a container service (`render.yaml` blueprint) |
+| PostgreSQL, Redis, Kafka | managed services |
 | Temporal | Temporal Cloud or self-hosted |
 
-See [docs/architecture.md](docs/architecture.md) and [docs/deployment.md](docs/deployment.md) for full deployment guides.
+See [docs/architecture.md](docs/architecture.md) and [docs/deployment.md](docs/deployment.md) for the full guides.
 
----
+## Contributing
 
-## 🤝 Contributing
+Bug reports and pull requests are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md) for setup and the CI checks. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md), not in a public issue.
 
-Bug reports and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the local setup and CI checks. Vulnerabilities go through [SECURITY.md](SECURITY.md), privately, rather than a public issue.
-
----
-
-## 📄 License
+## License
 
 MIT. See [LICENSE](LICENSE).
