@@ -1,6 +1,6 @@
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { authenticateMcpToken } from "@/lib/mcp/service";
-import { createLoomMcpServer } from "@/lib/mcp/server";
+import { createHiveGraphMcpServer } from "@/lib/mcp/server";
 import { readBodyBytes, requestErrorResponse } from "@/lib/http/request";
 
 export const runtime = "nodejs";
@@ -12,12 +12,12 @@ function readBearerToken(request: Request) {
 
 function unauthorized() {
   return Response.json(
-    { error: "A valid Loom MCP bearer token is required." },
+    { error: "A valid HiveGraph MCP bearer token is required." },
     {
       status: 401,
       headers: {
         "cache-control": "no-store",
-        "www-authenticate": 'Bearer realm="Loom MCP"',
+        "www-authenticate": 'Bearer realm="HiveGraph MCP"',
       },
     },
   );
@@ -55,7 +55,7 @@ async function handleMcp(request: Request) {
     allowedOrigins: [publicUrl.origin],
     enableDnsRebindingProtection: true,
   });
-  const server = createLoomMcpServer(account.userId);
+  const server = createHiveGraphMcpServer(account.userId);
   await server.connect(transport);
   try {
     return await transport.handleRequest(boundedRequest);

@@ -16,7 +16,7 @@ export function getRedis(): Promise<Redis> {
       connectTimeout: config.connectTimeoutMs,
       commandTimeout: config.commandTimeoutMs,
       keepAlive: 10_000,
-      connectionName: "loom-web",
+      connectionName: "hivegraph-web",
       // Reconnecting to Redis is a SAME-resource retry (unlike the model chain's
       // lateral fallback), so it uses real exponential backoff with jitter:
       // base doubles each attempt, capped at 2s, plus up to 50% random jitter so

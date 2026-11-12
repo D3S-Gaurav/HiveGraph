@@ -31,9 +31,9 @@ describe("MCP access tokens", () => {
 
     const issued = await issueMcpToken("user-a");
 
-    expect(issued.token).toMatch(/^loom_mcp_[A-Za-z0-9_-]{43}$/);
+    expect(issued.token).toMatch(/^hivegraph_mcp_[A-Za-z0-9_-]{43}$/);
     // Display prefix is the label plus the first 6 random characters.
-    expect(issued.prefix).toBe(issued.token.slice(0, "loom_mcp_".length + 6));
+    expect(issued.prefix).toBe(issued.token.slice(0, "hivegraph_mcp_".length + 6));
     expect(issued.createdAt).toEqual(createdAt);
     expect(repository.saveMcpToken).toHaveBeenCalledWith(
       "user-a",
@@ -44,7 +44,7 @@ describe("MCP access tokens", () => {
   });
 
   it("maps a valid bearer token to its owning user", async () => {
-    const token = `loom_mcp_${"a".repeat(43)}`;
+    const token = `hivegraph_mcp_${"a".repeat(43)}`;
     repository.consumeMcpToken.mockResolvedValue("owner-user");
 
     await expect(authenticateMcpToken(token)).resolves.toEqual({
@@ -55,12 +55,12 @@ describe("MCP access tokens", () => {
 
   it("rejects malformed authorization without querying stored hashes", async () => {
     await expect(authenticateMcpToken("anything")).resolves.toBeNull();
-    await expect(authenticateMcpToken("loom_mcp_short")).resolves.toBeNull();
+    await expect(authenticateMcpToken("hivegraph_mcp_short")).resolves.toBeNull();
     expect(repository.consumeMcpToken).not.toHaveBeenCalled();
   });
 
   it("fails closed for unknown or revoked token hashes", async () => {
-    const token = `loom_mcp_${"b".repeat(43)}`;
+    const token = `hivegraph_mcp_${"b".repeat(43)}`;
     repository.consumeMcpToken.mockResolvedValue(null);
 
     await expect(authenticateMcpToken(token)).resolves.toBeNull();
@@ -80,7 +80,7 @@ describe("MCP access tokens", () => {
   it("reports only active token metadata and never the stored hash", async () => {
     const createdAt = new Date("2026-07-18T12:00:00Z");
     repository.findMcpTokenStatus.mockResolvedValue({
-      prefix: "loom_mcp_abc123",
+      prefix: "hivegraph_mcp_abc123",
       createdAt,
       lastUsedAt: null,
       revokedAt: null,
@@ -88,7 +88,7 @@ describe("MCP access tokens", () => {
 
     await expect(getMcpTokenStatus("user-a")).resolves.toEqual({
       configured: true,
-      prefix: "loom_mcp_abc123",
+      prefix: "hivegraph_mcp_abc123",
       createdAt,
       lastUsedAt: null,
     });

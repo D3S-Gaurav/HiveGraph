@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 type telemetryServer struct {

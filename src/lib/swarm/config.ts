@@ -128,7 +128,7 @@ function azureEventHubsConfig(): KafkaInfrastructureConfig | null {
 
   return {
     brokers: [`${host}:9093`],
-    clientId: process.env.KAFKA_CLIENT_ID?.trim() || "loom-web",
+    clientId: process.env.KAFKA_CLIENT_ID?.trim() || "hivegraph-web",
     topic,
     ssl: true,
     sasl: { mechanism: "plain", username: "$ConnectionString", password: connectionString },
@@ -160,7 +160,7 @@ export function getKafkaConfig(): KafkaInfrastructureConfig {
 
   return {
     brokers,
-    clientId: process.env.KAFKA_CLIENT_ID?.trim() || "loom-web",
+    clientId: process.env.KAFKA_CLIENT_ID?.trim() || "hivegraph-web",
     topic,
     ssl: kafkaTls(),
     sasl: kafkaSasl(),
@@ -190,7 +190,7 @@ export function getRedisConfig(): RedisInfrastructureConfig {
 }
 
 export function getInfrastructureHealthCacheMs() {
-  return positiveInt("LOOM_INFRA_HEALTH_CACHE_MS", 5_000);
+  return positiveInt("HIVEGRAPH_INFRA_HEALTH_CACHE_MS", 5_000);
 }
 
 /**
@@ -199,5 +199,5 @@ export function getInfrastructureHealthCacheMs() {
  * retry budget while a request waits.
  */
 export function getKafkaProbeTimeoutMs() {
-  return positiveInt("LOOM_KAFKA_PROBE_TIMEOUT_MS", 3_000);
+  return positiveInt("HIVEGRAPH_KAFKA_PROBE_TIMEOUT_MS", 3_000);
 }

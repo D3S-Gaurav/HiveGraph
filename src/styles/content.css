@@ -1,28 +1,28 @@
-.loom-md {
+.hivegraph-md {
   color: #ddd7e8;
   font-size: 11.5px;
   line-height: 1.72;
   overflow-wrap: anywhere;
 }
 
-.loom-md h1,
-.loom-md h2,
-.loom-md h3 {
+.hivegraph-md h1,
+.hivegraph-md h2,
+.hivegraph-md h3 {
   color: var(--ink);
   margin: 18px 0 8px;
   line-height: 1.3;
   text-wrap: balance;
 }
 
-.loom-md h1 { font-size: 17px; }
-.loom-md h2 { font-size: 14px; }
-.loom-md h3 { font-size: 12.5px; }
-.loom-md p { margin: 8px 0; text-wrap: pretty; }
-.loom-md ul,
-.loom-md ol { margin: 8px 0; padding-left: 19px; }
-.loom-md li { margin: 3px 0; }
+.hivegraph-md h1 { font-size: 17px; }
+.hivegraph-md h2 { font-size: 14px; }
+.hivegraph-md h3 { font-size: 12.5px; }
+.hivegraph-md p { margin: 8px 0; text-wrap: pretty; }
+.hivegraph-md ul,
+.hivegraph-md ol { margin: 8px 0; padding-left: 19px; }
+.hivegraph-md li { margin: 3px 0; }
 
-.loom-md code {
+.hivegraph-md code {
   border-radius: 4px;
   background: var(--surface-active);
   color: var(--ink);
@@ -31,7 +31,7 @@
   font-size: 10px;
 }
 
-.loom-md pre {
+.hivegraph-md pre {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -40,12 +40,12 @@
   padding: 11px;
 }
 
-.loom-md pre code { background: none; padding: 0; }
-.loom-md a { color: var(--cyan); text-underline-offset: 3px; }
-.loom-md strong { color: var(--ink); }
-.loom-md table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
-.loom-md th,
-.loom-md td { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: left; }
+.hivegraph-md pre code { background: none; padding: 0; }
+.hivegraph-md a { color: var(--cyan); text-underline-offset: 3px; }
+.hivegraph-md strong { color: var(--ink); }
+.hivegraph-md table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10px; }
+.hivegraph-md th,
+.hivegraph-md td { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: left; }
 
 .react-flow__controls {
   overflow: hidden;

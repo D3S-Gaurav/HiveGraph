@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 func testEvent(runID string, sequence int64) *telemetryv1.RunEvent {

@@ -25,8 +25,8 @@ export interface RunSession {
   lastError?: string;
 }
 
-const SESSION_TTL_SECONDS = intEnv("LOOM_RUN_SESSION_TTL_SECONDS", 86_400);
-const EVENT_STREAM_MAX_LENGTH = intEnv("LOOM_RUN_EVENT_STREAM_MAX_LENGTH", 10_000);
+const SESSION_TTL_SECONDS = intEnv("HIVEGRAPH_RUN_SESSION_TTL_SECONDS", 86_400);
+const EVENT_STREAM_MAX_LENGTH = intEnv("HIVEGRAPH_RUN_EVENT_STREAM_MAX_LENGTH", 10_000);
 
 // One atomic Redis script keeps the session projection and append-only stream in
 // sync. sequence-0 is a deterministic stream ID, so a retried event is ignored
@@ -58,15 +58,15 @@ function intEnv(name: string, fallback: number) {
 }
 
 function sessionKey(runId: string) {
-  return `loom:run:${runId}`;
+  return `hivegraph:run:${runId}`;
 }
 
 function eventStreamKey(runId: string) {
-  return `loom:run:${runId}:events`;
+  return `hivegraph:run:${runId}:events`;
 }
 
 function ownerRunsKey(ownerId: string) {
-  return `loom:owner:${ownerId}:runs`;
+  return `hivegraph:owner:${ownerId}:runs`;
 }
 
 /** Stores an append-only event stream and the current run projection in Redis. */

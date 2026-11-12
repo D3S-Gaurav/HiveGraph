@@ -21,7 +21,7 @@ describe("MCP token repository", () => {
     query.mockResolvedValue({
       rows: [
         {
-          token_prefix: "loom_mcp_abc123",
+          token_prefix: "hivegraph_mcp_abc123",
           created_at: createdAt,
           last_used_at: null,
           revoked_at: null,
@@ -29,13 +29,13 @@ describe("MCP token repository", () => {
       ],
     });
 
-    await saveMcpToken("user-a", "a".repeat(64), "loom_mcp_abc123");
+    await saveMcpToken("user-a", "a".repeat(64), "hivegraph_mcp_abc123");
 
     expect(query.mock.calls[0][0]).toMatch(/on conflict \(user_id\) do update/);
     expect(query.mock.calls[0][1]).toEqual([
       "user-a",
       "a".repeat(64),
-      "loom_mcp_abc123",
+      "hivegraph_mcp_abc123",
     ]);
   });
 

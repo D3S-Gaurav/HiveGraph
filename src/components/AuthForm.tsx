@@ -35,7 +35,7 @@ export function AuthForm() {
       router.push("/");
       router.refresh();
     } catch {
-      setError("Loom could not reach the authentication service. Please try again.");
+      setError("HiveGraph could not reach the authentication service. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -47,9 +47,9 @@ export function AuthForm() {
   }
 
   return (
-    <div className="loom-auth-card">
-      <div className="loom-auth-card-head">
-        <span className="loom-auth-icon"><RocketIcon size={20} /></span>
+    <div className="hivegraph-auth-card">
+      <div className="hivegraph-auth-card-head">
+        <span className="hivegraph-auth-icon"><RocketIcon size={20} /></span>
         <div>
           <h2>{mode === "sign-in" ? "Welcome back" : "Create your workspace"}</h2>
           <p>
@@ -60,7 +60,7 @@ export function AuthForm() {
         </div>
       </div>
 
-      <div className="loom-auth-tabs" role="tablist" aria-label="Authentication mode">
+      <div className="hivegraph-auth-tabs" role="tablist" aria-label="Authentication mode">
         <button
           aria-selected={mode === "sign-in"}
           className={mode === "sign-in" ? "is-active" : ""}
@@ -81,11 +81,11 @@ export function AuthForm() {
         </button>
       </div>
 
-      <form onSubmit={submit} className="loom-auth-form">
+      <form onSubmit={submit} className="hivegraph-auth-form">
         {mode === "sign-up" && (
           <label>
             <span>Name</span>
-            <span className="loom-field">
+            <span className="hivegraph-field">
               <UserIcon size={17} />
               <input
                 value={name}
@@ -100,7 +100,7 @@ export function AuthForm() {
         )}
         <label>
           <span>Email</span>
-          <span className="loom-field">
+          <span className="hivegraph-field">
             <MailIcon size={17} />
             <input
               type="email"
@@ -115,7 +115,7 @@ export function AuthForm() {
         </label>
         <label>
           <span>Password</span>
-          <span className="loom-field">
+          <span className="hivegraph-field">
             <LockIcon size={17} />
             <input
               type="password"
@@ -128,10 +128,10 @@ export function AuthForm() {
             />
           </span>
         </label>
-        {error && <p className="loom-auth-error" role="alert">{error}</p>}
-        <button type="submit" className="loom-primary-button" disabled={busy} aria-busy={busy}>
+        {error && <p className="hivegraph-auth-error" role="alert">{error}</p>}
+        <button type="submit" className="hivegraph-primary-button" disabled={busy} aria-busy={busy}>
           {busy ? (
-            <><span className="loom-button-loader" />Connecting…</>
+            <><span className="hivegraph-button-loader" />Connecting…</>
           ) : (
             <>{mode === "sign-up" ? "Create account" : "Sign in"}<RocketIcon size={17} /></>
           )}

@@ -49,7 +49,7 @@ export async function searchWeb(query: string, signal?: AbortSignal): Promise<We
       status: "unconfigured",
       sourceCount: 0,
       context:
-        "Live web search is not configured for this Loom deployment. State this limitation " +
+        "Live web search is not configured for this HiveGraph deployment. State this limitation " +
         "plainly and do not describe model knowledge as current web research.",
     };
   }

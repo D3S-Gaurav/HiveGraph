@@ -201,8 +201,8 @@ export async function POST(req: Request) {
       "content-type": "text/event-stream; charset=utf-8",
       "cache-control": "no-cache, no-transform",
       connection: "keep-alive",
-      "x-loom-run-id": runId,
-      "x-loom-execution-mode": running.mode,
+      "x-hivegraph-run-id": runId,
+      "x-hivegraph-execution-mode": running.mode,
     },
   });
 }

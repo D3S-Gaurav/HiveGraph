@@ -27,7 +27,7 @@ export function AmbientRelayVideo() {
   }, []);
 
   return (
-    <div className="loom-relay-media" aria-hidden="true">
+    <div className="hivegraph-relay-media" aria-hidden="true">
       <video
         ref={videoRef}
         autoPlay
@@ -35,11 +35,11 @@ export function AmbientRelayVideo() {
         loop
         muted
         playsInline
-        poster="/media/loom-relay-poster.jpg"
+        poster="/media/hivegraph-relay-poster.jpg"
         preload="metadata"
         tabIndex={-1}
       >
-        <source src="/media/loom-relay-loop.mp4" type="video/mp4" />
+        <source src="/media/hivegraph-relay-loop.mp4" type="video/mp4" />
       </video>
     </div>
   );

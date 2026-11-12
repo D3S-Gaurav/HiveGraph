@@ -1,6 +1,6 @@
-import { LoomMark } from "./LoomMark";
+import { HiveGraphMark } from "./HiveGraphMark";
 
-export function LoomBrand({
+export function HiveGraphBrand({
   compact = false,
   tagline,
 }: {
@@ -8,11 +8,11 @@ export function LoomBrand({
   tagline?: string;
 }) {
   return (
-    <div className={`loom-brand${compact ? " is-compact" : ""}`}>
-      <LoomMark size={compact ? 34 : 42} />
-      <div className="loom-brand-copy">
-        <span className="loom-wordmark">Loom</span>
-        {tagline ? <span className="loom-tagline">{tagline}</span> : null}
+    <div className={`hivegraph-brand${compact ? " is-compact" : ""}`}>
+      <HiveGraphMark size={compact ? 34 : 42} />
+      <div className="hivegraph-brand-copy">
+        <span className="hivegraph-wordmark">HiveGraph</span>
+        {tagline ? <span className="hivegraph-tagline">{tagline}</span> : null}
       </div>
     </div>
   );

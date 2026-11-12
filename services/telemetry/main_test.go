@@ -53,8 +53,8 @@ func TestLoadConfigAcceptsHostedKafkaTLSAndSASL(t *testing.T) {
 func TestKafkaOptionsRejectsInvalidProjectCA(t *testing.T) {
 	_, err := kafkaOptions(config{
 		brokers: []string{"kafka.example.com:12345"},
-		topic:   "loom.swarm.events",
-		groupID: "loom-telemetry-v1",
+		topic:   "hivegraph.swarm.events",
+		groupID: "hivegraph-telemetry-v1",
 		ssl:     true,
 		caCert:  "not a certificate",
 	})
@@ -74,8 +74,8 @@ func TestLoadConfigRequiresCompleteSASLCredentials(t *testing.T) {
 func TestKafkaOptionsRejectsUnsupportedSASLMechanism(t *testing.T) {
 	_, err := kafkaOptions(config{
 		brokers:       []string{"kafka.example.com:12345"},
-		topic:         "loom.swarm.events",
-		groupID:       "loom-telemetry-v1",
+		topic:         "hivegraph.swarm.events",
+		groupID:       "hivegraph-telemetry-v1",
 		saslMechanism: "oauth",
 		username:      "consumer",
 		password:      "secret",
@@ -87,7 +87,7 @@ func TestKafkaOptionsRejectsUnsupportedSASLMechanism(t *testing.T) {
 
 func TestLoadConfigReadsGRPCPortAndWebSocketOrigins(t *testing.T) {
 	t.Setenv("TELEMETRY_GRPC_PORT", "9190")
-	t.Setenv("TELEMETRY_WS_ALLOWED_ORIGINS", "https://loom.example.com, http://localhost:3000")
+	t.Setenv("TELEMETRY_WS_ALLOWED_ORIGINS", "https://hivegraph.example.com, http://localhost:3000")
 
 	cfg, err := loadConfig()
 	if err != nil {

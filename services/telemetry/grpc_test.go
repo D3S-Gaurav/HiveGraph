@@ -11,7 +11,7 @@ import (
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/test/bufconn"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 // startTestGRPC runs the real server over an in-memory listener, so these tests

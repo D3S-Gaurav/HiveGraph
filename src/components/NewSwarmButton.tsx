@@ -12,7 +12,7 @@ export function NewSwarmButton() {
 
   return (
     <button
-      className="loom-icon-link loom-new-swarm"
+      className="hivegraph-icon-link hivegraph-new-swarm"
       type="button"
       disabled={running}
       title={running ? "Wait for the active swarm to finish" : "Return to the Home composer"}

@@ -89,7 +89,7 @@ textarea:focus-visible {
   color: var(--ink);
 }
 
-.loom-primary-button {
+.hivegraph-primary-button {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -104,50 +104,50 @@ textarea:focus-visible {
   transition: background 180ms var(--ease-out), transform 180ms var(--ease-out);
 }
 
-.loom-primary-button:hover:not(:disabled) {
+.hivegraph-primary-button:hover:not(:disabled) {
   background: #cbbcff;
   transform: translateY(-1px);
 }
 
-.loom-primary-button:active:not(:disabled) {
+.hivegraph-primary-button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.loom-primary-button:disabled {
+.hivegraph-primary-button:disabled {
   cursor: not-allowed;
   opacity: 0.52;
 }
 
-.loom-button-loader {
+.hivegraph-button-loader {
   width: 14px;
   height: 14px;
   flex: 0 0 auto;
   border: 2px solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
-  animation: loom-loader 700ms linear infinite;
+  animation: hivegraph-loader 700ms linear infinite;
 }
 
-.loom-brand {
+.hivegraph-brand {
   display: flex;
   min-width: 0;
   align-items: center;
   gap: 11px;
 }
 
-.loom-mark {
+.hivegraph-mark {
   flex: 0 0 auto;
   filter: drop-shadow(0 0 10px rgb(167 139 250 / 23%));
 }
 
-.loom-brand-copy {
+.hivegraph-brand-copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 2px;
 }
 
-.loom-wordmark {
+.hivegraph-wordmark {
   color: var(--ink);
   font-size: 19px;
   font-weight: 760;
@@ -155,7 +155,7 @@ textarea:focus-visible {
   line-height: 1;
 }
 
-.loom-tagline {
+.hivegraph-tagline {
   overflow: hidden;
   color: var(--muted);
   font-size: 11.5px;
@@ -163,11 +163,11 @@ textarea:focus-visible {
   white-space: nowrap;
 }
 
-.loom-brand.is-compact .loom-wordmark {
+.hivegraph-brand.is-compact .hivegraph-wordmark {
   font-size: 17px;
 }
 
-.loom-popover {
+.hivegraph-popover {
   position: absolute;
   z-index: var(--z-dropdown);
   top: calc(100% + 8px);
@@ -188,7 +188,7 @@ details[open] > summary svg:last-child {
   transform: rotate(180deg);
 }
 
-@keyframes loom-loader {
+@keyframes hivegraph-loader {
   to { transform: rotate(360deg); }
 }
 

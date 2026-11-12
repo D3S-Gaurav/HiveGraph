@@ -10,7 +10,7 @@ import (
 
 	"github.com/coder/websocket"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 const (

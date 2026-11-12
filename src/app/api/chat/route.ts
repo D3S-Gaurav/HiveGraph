@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       try {
         const result = await runText("worker", {
           system:
-            "You are Loom Chat, a concise technical collaborator. Answer the latest user message using the supplied conversation as context. Use clean Markdown, make assumptions explicit, and never claim to have run a multi-agent swarm.",
+            "You are HiveGraph Chat, a concise technical collaborator. Answer the latest user message using the supplied conversation as context. Use clean Markdown, make assumptions explicit, and never claim to have run a multi-agent swarm.",
           prompt: transcript,
           maxOutputTokens: 800,
           signal,
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
           })}\n\n`));
         }
       } catch (error) {
-        console.error("Loom chat generation failed", error);
+        console.error("HiveGraph chat generation failed", error);
         if (!cancelled) {
           streamController.enqueue(encoder.encode(`data: ${JSON.stringify({ kind: "error", message: "Chat could not complete this response." })}\n\n`));
         }

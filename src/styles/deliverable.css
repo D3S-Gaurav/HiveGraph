@@ -1,11 +1,11 @@
-.loom-deliverable-heading-row {
+.hivegraph-deliverable-heading-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.loom-deliverable-open {
+.hivegraph-deliverable-open {
   display: inline-flex;
   min-height: 34px;
   flex: 0 0 auto;
@@ -23,16 +23,16 @@
   transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out);
 }
 
-.loom-deliverable-open:hover {
+.hivegraph-deliverable-open:hover {
   border-color: var(--accent);
   background: var(--surface-active);
   color: var(--ink);
 }
 
-.loom-deliverable-open svg { color: var(--accent); }
+.hivegraph-deliverable-open svg { color: var(--accent); }
 
-.loom-deliverable-preview .loom-md table,
-.loom-deliverable-reader .loom-md table {
+.hivegraph-deliverable-preview .hivegraph-md table,
+.hivegraph-deliverable-reader .hivegraph-md table {
   display: block;
   max-width: 100%;
   overflow-x: auto;
@@ -40,22 +40,22 @@
   overscroll-behavior-inline: contain;
 }
 
-.loom-deliverable-preview .loom-md th,
-.loom-deliverable-preview .loom-md td,
-.loom-deliverable-reader .loom-md th,
-.loom-deliverable-reader .loom-md td {
+.hivegraph-deliverable-preview .hivegraph-md th,
+.hivegraph-deliverable-preview .hivegraph-md td,
+.hivegraph-deliverable-reader .hivegraph-md th,
+.hivegraph-deliverable-reader .hivegraph-md td {
   min-width: 116px;
   overflow-wrap: normal;
   vertical-align: top;
   word-break: normal;
 }
 
-.loom-deliverable-preview .loom-md th:first-child,
-.loom-deliverable-preview .loom-md td:first-child {
+.hivegraph-deliverable-preview .hivegraph-md th:first-child,
+.hivegraph-deliverable-preview .hivegraph-md td:first-child {
   min-width: 138px;
 }
 
-.loom-deliverable-dialog {
+.hivegraph-deliverable-dialog {
   width: calc(100vw - 24px);
   height: calc(100svh - 24px);
   max-width: none;
@@ -68,16 +68,16 @@
   padding: 0;
 }
 
-.loom-deliverable-dialog[open] {
-  animation: loom-deliverable-enter 180ms var(--ease-out) both;
+.hivegraph-deliverable-dialog[open] {
+  animation: hivegraph-deliverable-enter 180ms var(--ease-out) both;
 }
 
-.loom-deliverable-dialog::backdrop {
+.hivegraph-deliverable-dialog::backdrop {
   background: rgb(4 3 8 / 80%);
   backdrop-filter: blur(12px);
 }
 
-.loom-deliverable-reader {
+.hivegraph-deliverable-reader {
   display: flex;
   height: 100%;
   min-height: 0;
@@ -87,7 +87,7 @@
     var(--canvas);
 }
 
-.loom-deliverable-reader-head {
+.hivegraph-deliverable-reader-head {
   display: flex;
   min-height: 64px;
   flex: 0 0 auto;
@@ -99,14 +99,14 @@
   padding: 10px 16px;
 }
 
-.loom-deliverable-reader-title {
+.hivegraph-deliverable-reader-title {
   display: flex;
   min-width: 0;
   align-items: center;
   gap: 10px;
 }
 
-.loom-deliverable-reader-title > span {
+.hivegraph-deliverable-reader-title > span {
   display: grid;
   width: 36px;
   height: 36px;
@@ -117,28 +117,28 @@
   color: var(--accent);
 }
 
-.loom-deliverable-reader-title h2 {
+.hivegraph-deliverable-reader-title h2 {
   margin: 0;
   color: var(--ink);
   font-size: 14px;
   line-height: 1.35;
 }
 
-.loom-deliverable-reader-title p {
+.hivegraph-deliverable-reader-title p {
   margin: 2px 0 0;
   color: var(--muted);
   font-size: 10px;
   line-height: 1.4;
 }
 
-.loom-deliverable-reader-actions {
+.hivegraph-deliverable-reader-actions {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   gap: 8px;
 }
 
-.loom-deliverable-reader-actions button {
+.hivegraph-deliverable-reader-actions button {
   display: inline-flex;
   min-height: 36px;
   align-items: center;
@@ -155,88 +155,88 @@
   transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out);
 }
 
-.loom-deliverable-reader-actions button:hover {
+.hivegraph-deliverable-reader-actions button:hover {
   border-color: var(--accent);
   background: var(--surface-active);
   color: var(--ink);
 }
 
-.loom-deliverable-reader-actions .loom-deliverable-close {
+.hivegraph-deliverable-reader-actions .hivegraph-deliverable-close {
   display: grid;
   width: 36px;
   padding: 0;
   place-items: center;
 }
 
-.loom-deliverable-reader-scroll {
+.hivegraph-deliverable-reader-scroll {
   min-height: 0;
   flex: 1;
   overflow: auto;
   padding: 40px clamp(18px, 5vw, 72px) 72px;
 }
 
-.loom-deliverable-document {
+.hivegraph-deliverable-document {
   width: min(100%, 1120px);
   margin: 0 auto;
 }
 
-.loom-deliverable-reader .loom-md {
+.hivegraph-deliverable-reader .hivegraph-md {
   color: var(--text);
   font-size: 15px;
   line-height: 1.76;
   overflow-wrap: break-word;
 }
 
-.loom-deliverable-reader .loom-md > :not(table):not(pre) {
+.hivegraph-deliverable-reader .hivegraph-md > :not(table):not(pre) {
   max-width: 72ch;
   margin-right: auto;
   margin-left: auto;
 }
 
-.loom-deliverable-reader .loom-md h1,
-.loom-deliverable-reader .loom-md h2,
-.loom-deliverable-reader .loom-md h3 {
+.hivegraph-deliverable-reader .hivegraph-md h1,
+.hivegraph-deliverable-reader .hivegraph-md h2,
+.hivegraph-deliverable-reader .hivegraph-md h3 {
   margin-top: 1.7em;
   margin-bottom: 0.55em;
   letter-spacing: -0.018em;
 }
 
-.loom-deliverable-reader .loom-md h1:first-child,
-.loom-deliverable-reader .loom-md h2:first-child,
-.loom-deliverable-reader .loom-md h3:first-child,
-.loom-deliverable-reader .loom-md p:first-child {
+.hivegraph-deliverable-reader .hivegraph-md h1:first-child,
+.hivegraph-deliverable-reader .hivegraph-md h2:first-child,
+.hivegraph-deliverable-reader .hivegraph-md h3:first-child,
+.hivegraph-deliverable-reader .hivegraph-md p:first-child {
   margin-top: 0;
 }
 
-.loom-deliverable-reader .loom-md h1 { font-size: 28px; }
-.loom-deliverable-reader .loom-md h2 { font-size: 21px; }
-.loom-deliverable-reader .loom-md h3 { font-size: 17px; }
-.loom-deliverable-reader .loom-md p { margin-top: 0.85em; margin-bottom: 0.85em; }
-.loom-deliverable-reader .loom-md ul,
-.loom-deliverable-reader .loom-md ol { margin-top: 0.85em; margin-bottom: 0.85em; padding-left: 1.5em; }
-.loom-deliverable-reader .loom-md li { margin: 0.35em 0; }
+.hivegraph-deliverable-reader .hivegraph-md h1 { font-size: 28px; }
+.hivegraph-deliverable-reader .hivegraph-md h2 { font-size: 21px; }
+.hivegraph-deliverable-reader .hivegraph-md h3 { font-size: 17px; }
+.hivegraph-deliverable-reader .hivegraph-md p { margin-top: 0.85em; margin-bottom: 0.85em; }
+.hivegraph-deliverable-reader .hivegraph-md ul,
+.hivegraph-deliverable-reader .hivegraph-md ol { margin-top: 0.85em; margin-bottom: 0.85em; padding-left: 1.5em; }
+.hivegraph-deliverable-reader .hivegraph-md li { margin: 0.35em 0; }
 
-.loom-deliverable-reader .loom-md table {
+.hivegraph-deliverable-reader .hivegraph-md table {
   margin: 26px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   font-size: 13px;
 }
 
-.loom-deliverable-reader .loom-md th,
-.loom-deliverable-reader .loom-md td {
+.hivegraph-deliverable-reader .hivegraph-md th,
+.hivegraph-deliverable-reader .hivegraph-md td {
   min-width: 170px;
   padding: 11px 14px;
   line-height: 1.55;
 }
 
-.loom-deliverable-reader .loom-md th {
+.hivegraph-deliverable-reader .hivegraph-md th {
   background: var(--surface-raised);
   color: var(--ink);
   font-weight: 700;
 }
 
-.loom-deliverable-reader .loom-md pre {
+.hivegraph-deliverable-reader .hivegraph-md pre {
   max-width: 100%;
   margin: 24px 0;
   padding: 16px;
@@ -244,9 +244,9 @@
   line-height: 1.65;
 }
 
-.loom-deliverable-reader .loom-md code { font-size: 0.86em; }
+.hivegraph-deliverable-reader .hivegraph-md code { font-size: 0.86em; }
 
-.loom-deliverable-copy-status {
+.hivegraph-deliverable-copy-status {
   position: absolute;
   overflow: hidden;
   width: 1px;
@@ -256,31 +256,31 @@
   white-space: nowrap;
 }
 
-@keyframes loom-deliverable-enter {
+@keyframes hivegraph-deliverable-enter {
   from { opacity: 0; transform: scale(0.992); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @media (max-width: 640px) {
-  .loom-deliverable-dialog {
+  .hivegraph-deliverable-dialog {
     width: 100vw;
     height: 100svh;
     border: 0;
     border-radius: 0;
   }
 
-  .loom-deliverable-reader-head { min-height: 58px; padding: 8px 10px; }
-  .loom-deliverable-reader-title p { display: none; }
-  .loom-deliverable-reader-actions { gap: 5px; }
-  .loom-deliverable-reader-actions button { padding-inline: 9px; }
-  .loom-deliverable-reader-actions button:not(.loom-deliverable-close) svg { display: none; }
-  .loom-deliverable-reader-scroll { padding: 28px 16px 56px; }
-  .loom-deliverable-reader .loom-md { font-size: 14px; }
-  .loom-deliverable-reader .loom-md h1 { font-size: 24px; }
-  .loom-deliverable-reader .loom-md h2 { font-size: 19px; }
-  .loom-deliverable-reader .loom-md h3 { font-size: 16px; }
-  .loom-deliverable-reader .loom-md th,
-  .loom-deliverable-reader .loom-md td { min-width: 150px; padding: 10px 12px; }
+  .hivegraph-deliverable-reader-head { min-height: 58px; padding: 8px 10px; }
+  .hivegraph-deliverable-reader-title p { display: none; }
+  .hivegraph-deliverable-reader-actions { gap: 5px; }
+  .hivegraph-deliverable-reader-actions button { padding-inline: 9px; }
+  .hivegraph-deliverable-reader-actions button:not(.hivegraph-deliverable-close) svg { display: none; }
+  .hivegraph-deliverable-reader-scroll { padding: 28px 16px 56px; }
+  .hivegraph-deliverable-reader .hivegraph-md { font-size: 14px; }
+  .hivegraph-deliverable-reader .hivegraph-md h1 { font-size: 24px; }
+  .hivegraph-deliverable-reader .hivegraph-md h2 { font-size: 19px; }
+  .hivegraph-deliverable-reader .hivegraph-md h3 { font-size: 16px; }
+  .hivegraph-deliverable-reader .hivegraph-md th,
+  .hivegraph-deliverable-reader .hivegraph-md td { min-width: 150px; padding: 10px 12px; }
 }
 
 @media print {
@@ -288,9 +288,9 @@
 
   body { overflow: visible !important; background: #f6f3ff !important; }
   body * { visibility: hidden !important; }
-  .loom-deliverable-dialog,
-  .loom-deliverable-dialog * { visibility: visible !important; }
-  .loom-deliverable-dialog {
+  .hivegraph-deliverable-dialog,
+  .hivegraph-deliverable-dialog * { visibility: visible !important; }
+  .hivegraph-deliverable-dialog {
     position: absolute !important;
     inset: 0 !important;
     width: 100% !important;
@@ -300,21 +300,21 @@
     background: #f6f3ff !important;
     color: #171322 !important;
   }
-  .loom-deliverable-reader { height: auto !important; background: #f6f3ff !important; }
-  .loom-deliverable-reader-head { display: none !important; }
-  .loom-deliverable-reader-scroll { overflow: visible !important; padding: 0 !important; }
-  .loom-deliverable-document { width: 100% !important; }
-  .loom-deliverable-reader .loom-md,
-  .loom-deliverable-reader .loom-md strong,
-  .loom-deliverable-reader .loom-md h1,
-  .loom-deliverable-reader .loom-md h2,
-  .loom-deliverable-reader .loom-md h3 { color: #171322 !important; }
-  .loom-deliverable-reader .loom-md table { display: table; overflow: visible; }
-  .loom-deliverable-reader .loom-md th { background: #e1dbea !important; }
-  .loom-deliverable-reader .loom-md th,
-  .loom-deliverable-reader .loom-md td { min-width: 0; border-color: #aaa1b9 !important; }
+  .hivegraph-deliverable-reader { height: auto !important; background: #f6f3ff !important; }
+  .hivegraph-deliverable-reader-head { display: none !important; }
+  .hivegraph-deliverable-reader-scroll { overflow: visible !important; padding: 0 !important; }
+  .hivegraph-deliverable-document { width: 100% !important; }
+  .hivegraph-deliverable-reader .hivegraph-md,
+  .hivegraph-deliverable-reader .hivegraph-md strong,
+  .hivegraph-deliverable-reader .hivegraph-md h1,
+  .hivegraph-deliverable-reader .hivegraph-md h2,
+  .hivegraph-deliverable-reader .hivegraph-md h3 { color: #171322 !important; }
+  .hivegraph-deliverable-reader .hivegraph-md table { display: table; overflow: visible; }
+  .hivegraph-deliverable-reader .hivegraph-md th { background: #e1dbea !important; }
+  .hivegraph-deliverable-reader .hivegraph-md th,
+  .hivegraph-deliverable-reader .hivegraph-md td { min-width: 0; border-color: #aaa1b9 !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loom-deliverable-dialog[open] { animation: none; }
+  .hivegraph-deliverable-dialog[open] { animation: none; }
 }

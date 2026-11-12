@@ -28,7 +28,7 @@ export interface RunEventGateOptions {
 
 /**
  * Bound on one replay. The Redis stream is capped at 10k events
- * (LOOM_RUN_EVENT_STREAM_MAX_LENGTH) and a page is 1k, so this cannot be hit
+ * (HIVEGRAPH_RUN_EVENT_STREAM_MAX_LENGTH) and a page is 1k, so this cannot be hit
  * by a legitimate run — it exists so a misbehaving endpoint cannot spin here.
  */
 const MAX_REPLAY_PAGES = 20;
@@ -136,7 +136,7 @@ export async function fetchRunBackfill(runId: string, afterSequence = 0): Promis
 }
 
 export interface RunStreamOptions {
-  /** From the `x-loom-run-id` response header. Without it there is no socket. */
+  /** From the `x-hivegraph-run-id` response header. Without it there is no socket. */
   runId: string | null;
   /** The `POST /api/swarm` response body: the SSE lane. */
   body: ReadableStream<Uint8Array>;

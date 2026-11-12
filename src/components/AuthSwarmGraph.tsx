@@ -26,7 +26,7 @@ export function AuthSwarmGraph() {
       if (motionPreference.matches) return;
 
       scope = createScope({ root }).add(() => {
-        animate(".loom-auth-edge-path", {
+        animate(".hivegraph-auth-edge-path", {
           strokeDashoffset: -26,
           delay: stagger(140),
           duration: 1400,
@@ -34,7 +34,7 @@ export function AuthSwarmGraph() {
           loop: true,
         });
 
-        animate(".loom-auth-status.is-live", {
+        animate(".hivegraph-auth-status.is-live", {
           opacity: 1,
           scale: 1.28,
           delay: stagger(220),
@@ -58,43 +58,43 @@ export function AuthSwarmGraph() {
   return (
     <div
       ref={root}
-      className="loom-auth-graph"
+      className="hivegraph-auth-graph"
       role="img"
       aria-label="Example swarm flow: the planner delegates to research and analysis, then both feed synthesis."
     >
       <svg
-        className="loom-auth-edges"
+        className="hivegraph-auth-edges"
         viewBox="0 0 640 232"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
         {EDGES.map((path) => (
           <g key={path}>
-            <path className="loom-auth-edge-line" d={path} />
-            <path className="loom-auth-edge-path" d={path} />
+            <path className="hivegraph-auth-edge-line" d={path} />
+            <path className="hivegraph-auth-edge-path" d={path} />
           </g>
         ))}
       </svg>
 
-      <div className="loom-auth-node is-planner">
+      <div className="hivegraph-auth-node is-planner">
         <AgentIcon type="planner" size={17} />
         <span>Planner</span>
-        <small><i className="loom-auth-status" />Task graph ready</small>
+        <small><i className="hivegraph-auth-status" />Task graph ready</small>
       </div>
-      <div className="loom-auth-node is-research">
+      <div className="hivegraph-auth-node is-research">
         <AgentIcon type="researcher" size={17} />
         <span>Research</span>
-        <small><i className="loom-auth-status is-live" />Running</small>
+        <small><i className="hivegraph-auth-status is-live" />Running</small>
       </div>
-      <div className="loom-auth-node is-analysis">
+      <div className="hivegraph-auth-node is-analysis">
         <AgentIcon type="analyst" size={17} />
         <span>Analysis</span>
-        <small><i className="loom-auth-status is-live" />Running</small>
+        <small><i className="hivegraph-auth-status is-live" />Running</small>
       </div>
-      <div className="loom-auth-node is-synthesis">
+      <div className="hivegraph-auth-node is-synthesis">
         <AgentIcon type="synthesizer" size={17} />
         <span>Synthesis</span>
-        <small><i className="loom-auth-status" />Waiting on 2 agents</small>
+        <small><i className="hivegraph-auth-status" />Waiting on 2 agents</small>
       </div>
     </div>
   );

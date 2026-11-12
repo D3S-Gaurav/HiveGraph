@@ -1,4 +1,4 @@
-# Loom architecture
+# HiveGraph architecture
 
 ## Boundaries
 

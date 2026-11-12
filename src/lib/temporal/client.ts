@@ -13,7 +13,7 @@ function temporalConfig() {
 }
 
 export function getExecutionMode(): "direct" | "temporal" {
-  return process.env.LOOM_EXECUTION_MODE === "temporal" ? "temporal" : "direct";
+  return process.env.HIVEGRAPH_EXECUTION_MODE === "temporal" ? "temporal" : "direct";
 }
 
 export function getTemporalClient() {

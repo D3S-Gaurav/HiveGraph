@@ -10,9 +10,9 @@ export function runAllowance(plan: BillingPlan) {
   return {
     limit:
       plan === "pro"
-        ? positiveInt("LOOM_PRO_RUNS_PER_WINDOW", 100)
-        : positiveInt("LOOM_FREE_RUNS_PER_WINDOW", 3),
-    windowSeconds: positiveInt("LOOM_RUN_WINDOW_SECONDS", 3600),
+        ? positiveInt("HIVEGRAPH_PRO_RUNS_PER_WINDOW", 100)
+        : positiveInt("HIVEGRAPH_FREE_RUNS_PER_WINDOW", 3),
+    windowSeconds: positiveInt("HIVEGRAPH_RUN_WINDOW_SECONDS", 3600),
   };
 }
 
@@ -20,9 +20,9 @@ export function maxRunAllowance(plan: BillingPlan) {
   return {
     limit:
       plan === "pro"
-        ? positiveInt("LOOM_PRO_MAX_RUNS_PER_WINDOW", 100)
-        : positiveInt("LOOM_FREE_MAX_RUNS_PER_WINDOW", 1),
-    windowSeconds: positiveInt("LOOM_RUN_WINDOW_SECONDS", 3600),
+        ? positiveInt("HIVEGRAPH_PRO_MAX_RUNS_PER_WINDOW", 100)
+        : positiveInt("HIVEGRAPH_FREE_MAX_RUNS_PER_WINDOW", 1),
+    windowSeconds: positiveInt("HIVEGRAPH_RUN_WINDOW_SECONDS", 3600),
   };
 }
 

@@ -24,19 +24,19 @@ export function BillingControls({ plan }: { plan: BillingPlan }) {
   }
 
   return (
-    <div className="loom-billing">
+    <div className="hivegraph-billing">
       <button
-        className={`loom-billing-button is-${plan}`}
+        className={`hivegraph-billing-button is-${plan}`}
         onClick={openBilling}
         disabled={loading}
-        aria-label={plan === "pro" ? "Manage Pro billing" : "Upgrade to Loom Pro"}
+        aria-label={plan === "pro" ? "Manage Pro billing" : "Upgrade to HiveGraph Pro"}
       >
         <CreditCardIcon size={16} />
-        <span className="loom-plan">{plan === "pro" ? "Pro" : "Free"}</span>
-        <span className="loom-plan-copy">{plan === "pro" ? "100 runs/hr" : "3 runs/hr · 1 Max"}</span>
+        <span className="hivegraph-plan">{plan === "pro" ? "Pro" : "Free"}</span>
+        <span className="hivegraph-plan-copy">{plan === "pro" ? "100 runs/hr" : "3 runs/hr · 1 Max"}</span>
         <strong>{loading ? "Opening…" : plan === "pro" ? "Manage" : "Upgrade"}</strong>
       </button>
-      {error ? <span className="loom-billing-error" role="status">{error}</span> : null}
+      {error ? <span className="hivegraph-billing-error" role="status">{error}</span> : null}
     </div>
   );
 }

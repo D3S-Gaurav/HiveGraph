@@ -1,8 +1,8 @@
-export function LoomMark({ size = 42, className = "" }: { size?: number; className?: string }) {
+export function HiveGraphMark({ size = 42, className = "" }: { size?: number; className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className={`loom-mark ${className}`.trim()}
+      className={`hivegraph-mark ${className}`.trim()}
       height={size}
       viewBox="0 0 64 64"
       width={size}

@@ -47,7 +47,7 @@ export function useRunSwarm() {
         return;
       }
 
-      const runId = res.headers.get("x-loom-run-id");
+      const runId = res.headers.get("x-hivegraph-run-id");
       if (runId) setRunId(runId);
 
       await consumeRunStream({

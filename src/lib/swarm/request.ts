@@ -238,7 +238,7 @@ async function readPublicGitHubRepository(
   const signal = AbortSignal.any([externalSignal, AbortSignal.timeout(7_000)]);
   const headers = {
     accept: "application/vnd.github+json",
-    "user-agent": "loom-swarm/1.0",
+    "user-agent": "hivegraph-swarm/1.0",
     "x-github-api-version": "2022-11-28",
   };
 
@@ -279,7 +279,7 @@ async function readPublicGitHubRepository(
     if (externalSignal.aborted) throw error;
     console.error("Unable to read public GitHub repository attachment", error);
     throw new SwarmAttachmentError(
-      "Loom could not read that public GitHub repository. Check the URL and try again.",
+      "HiveGraph could not read that public GitHub repository. Check the URL and try again.",
     );
   }
 }

@@ -1,4 +1,4 @@
-name: loom
+name: hivegraph
 
 # This single-node stack is production-like infrastructure for local development
 # and CI. Deploy the app against replicated managed Kafka/Redis in production.
@@ -6,15 +6,15 @@ services:
   postgres:
     image: postgres:18.2-alpine
     environment:
-      POSTGRES_DB: loom
-      POSTGRES_USER: loom
-      POSTGRES_PASSWORD: loom
+      POSTGRES_DB: hivegraph
+      POSTGRES_USER: hivegraph
+      POSTGRES_PASSWORD: hivegraph
     ports:
       - "127.0.0.1:5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U loom -d loom"]
+      test: ["CMD-SHELL", "pg_isready -U hivegraph -d hivegraph"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -99,7 +99,7 @@ services:
       - --create
       - --if-not-exists
       - --topic
-      - loom.swarm.events
+      - hivegraph.swarm.events
       - --partitions
       - "6"
       - --replication-factor
@@ -153,8 +153,8 @@ services:
         condition: service_completed_successfully
     environment:
       KAFKA_BROKERS: kafka:19092
-      KAFKA_SWARM_EVENTS_TOPIC: loom.swarm.events
-      KAFKA_TELEMETRY_GROUP_ID: loom-telemetry-v1
+      KAFKA_SWARM_EVENTS_TOPIC: hivegraph.swarm.events
+      KAFKA_TELEMETRY_GROUP_ID: hivegraph-telemetry-v1
       TELEMETRY_PORT: 9091
       TELEMETRY_GRPC_PORT: 9090
       TELEMETRY_WS_ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
@@ -187,11 +187,11 @@ services:
         condition: service_healthy
     environment:
       KAFKA_BROKERS: kafka:19092
-      KAFKA_SWARM_EVENTS_TOPIC: loom.swarm.events
+      KAFKA_SWARM_EVENTS_TOPIC: hivegraph.swarm.events
       REDIS_URL: redis://redis:6379
       TEMPORAL_ADDRESS: temporal:7233
       TEMPORAL_NAMESPACE: default
-      TEMPORAL_TASK_QUEUE: loom-swarm
+      TEMPORAL_TASK_QUEUE: hivegraph-swarm
     restart: unless-stopped
 
 volumes:

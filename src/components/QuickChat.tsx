@@ -113,29 +113,29 @@ export function QuickChat() {
   }
 
   return (
-    <section className={`loom-quick-chat${messages.length ? " has-messages" : ""}`} aria-label="Quick chat">
+    <section className={`hivegraph-quick-chat${messages.length ? " has-messages" : ""}`} aria-label="Quick chat">
       {messages.length ? (
-        <div ref={scrollRef} className="loom-chat-thread" aria-live="polite">
+        <div ref={scrollRef} className="hivegraph-chat-thread" aria-live="polite">
           {messages.map((message) => (
-            <article key={message.id} className={`loom-chat-message is-${message.role}`}>
-              <span>{message.role === "user" ? "You" : "Loom"}</span>
+            <article key={message.id} className={`hivegraph-chat-message is-${message.role}`}>
+              <span>{message.role === "user" ? "You" : "HiveGraph"}</span>
               {message.role === "assistant" ? (
                 message.content ? <Markdown>{message.content}</Markdown> : (
-                  <p className="loom-chat-thinking"><SparklesIcon size={15} /> Thinking…</p>
+                  <p className="hivegraph-chat-thinking"><SparklesIcon size={15} /> Thinking…</p>
                 )
               ) : <p>{message.content}</p>}
             </article>
           ))}
         </div>
       ) : (
-        <div className="loom-chat-empty">
+        <div className="hivegraph-chat-empty">
           <ChatIcon size={20} />
-          <strong>Ask Loom directly</strong>
+          <strong>Ask HiveGraph directly</strong>
           <p>Use Chat for one fast answer. Use Agent swarm when the work should split across specialists.</p>
         </div>
       )}
 
-      <form className="loom-chat-form" onSubmit={submit}>
+      <form className="hivegraph-chat-form" onSubmit={submit}>
         <textarea
           aria-label="Chat message"
           value={draft}
@@ -158,18 +158,18 @@ export function QuickChat() {
       </form>
 
       {!messages.length ? (
-        <div className="loom-chat-examples">
+        <div className="hivegraph-chat-examples">
           {CHAT_EXAMPLES.map((example) => (
             <button key={example} type="button" onClick={() => setDraft(example)}>{example}</button>
           ))}
         </div>
       ) : null}
 
-      <div className="loom-chat-meta">
+      <div className="hivegraph-chat-meta">
         <span>Each message uses 1 hourly run</span>
         {stats ? <span>{stats.tokens.toLocaleString()} tokens≈ · {(stats.ms / 1000).toFixed(1)}s</span> : null}
       </div>
-      {error ? <p className="loom-chat-error" role="alert">{error}</p> : null}
+      {error ? <p className="hivegraph-chat-error" role="alert">{error}</p> : null}
     </section>
   );
 }

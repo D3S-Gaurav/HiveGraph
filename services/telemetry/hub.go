@@ -5,7 +5,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 // subscriberBuffer is how many events a single subscriber may fall behind by

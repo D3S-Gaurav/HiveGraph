@@ -17,7 +17,7 @@ async function main() {
     activities,
   });
 
-  console.log(`Loom Temporal worker polling ${address}`);
+  console.log(`HiveGraph Temporal worker polling ${address}`);
   await worker.run();
 }
 

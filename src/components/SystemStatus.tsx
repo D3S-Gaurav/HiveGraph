@@ -33,14 +33,14 @@ export function SystemStatus() {
   };
 
   return (
-    <details className="loom-system">
+    <details className="hivegraph-system">
       <summary title={ready ? "All required services are ready" : "Check infrastructure status"}>
-        <span className={`loom-system-dot${ready ? " is-ready" : ""}`} />
+        <span className={`hivegraph-system-dot${ready ? " is-ready" : ""}`} />
         <span>{health ? (ready ? "Systems ready" : "Limited mode") : "Checking systems"}</span>
         <ChevronDownIcon size={14} />
       </summary>
-      <div className="loom-popover loom-system-popover">
-        <div className="loom-popover-head">
+      <div className="hivegraph-popover hivegraph-system-popover">
+        <div className="hivegraph-popover-head">
           <span><RadioIcon size={15} />Infrastructure</span>
           <strong>{mode === "temporal" ? "Durable" : "Direct"}</strong>
         </div>
@@ -57,7 +57,7 @@ export function SystemStatus() {
                     : "Unavailable"}
               </small>
             </li>
-          )) : <li><span className="loom-button-loader" />Checking dependencies…</li>}
+          )) : <li><span className="hivegraph-button-loader" />Checking dependencies…</li>}
         </ul>
       </div>
     </details>

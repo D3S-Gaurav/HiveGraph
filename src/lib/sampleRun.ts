@@ -1,4 +1,4 @@
-// Auto-generated from a real Loom run; seeded into Recent Runs on first load.
+// Auto-generated from a real HiveGraph run; seeded into Recent Runs on first load.
 import type { SavedRun } from "./history";
 
 export const SAMPLE_RUN: SavedRun = {

@@ -6,12 +6,12 @@ import {
   saveMcpToken,
 } from "./repository";
 
-const TOKEN_LABEL = "loom_mcp_";
-const TOKEN_PATTERN = /^loom_mcp_[A-Za-z0-9_-]{43}$/;
+const TOKEN_LABEL = "hivegraph_mcp_";
+const TOKEN_PATTERN = /^hivegraph_mcp_[A-Za-z0-9_-]{43}$/;
 const DISPLAY_PREFIX_LENGTH = TOKEN_LABEL.length + 6;
 
 export interface IssuedMcpToken {
-  /** Only returned at issuance. Loom does not persist the raw token. */
+  /** Only returned at issuance. HiveGraph does not persist the raw token. */
   token: string;
   prefix: string;
   createdAt: Date;

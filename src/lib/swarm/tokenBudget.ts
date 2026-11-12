@@ -1,6 +1,6 @@
 import type { SwarmMode } from "./types";
 
-export const CONTEXT_TRUNCATION_MARKER = "\n[… truncated by Loom's context budget …]\n";
+export const CONTEXT_TRUNCATION_MARKER = "\n[… truncated by HiveGraph's context budget …]\n";
 
 export interface SwarmContextBudget {
   dependencyChars: number;

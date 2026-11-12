@@ -21,7 +21,7 @@ import (
 	"github.com/twmb/franz-go/pkg/sasl/plain"
 	"github.com/twmb/franz-go/pkg/sasl/scram"
 
-	telemetryv1 "github.com/D3S-Gaurav/Loom/services/telemetry/gen/telemetry/v1"
+	telemetryv1 "github.com/D3S-Gaurav/HiveGraph/services/telemetry/gen/telemetry/v1"
 )
 
 type config struct {
@@ -235,17 +235,17 @@ func routes(ctx context.Context, stats *metrics, events *hub, wsOrigins []string
 	})
 	mux.HandleFunc("GET /metrics", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("content-type", "text/plain; version=0.0.4")
-		writeGauge(w, "loom_consumer_up", boolValue(stats.consumerUp.Load()))
-		writeCounter(w, "loom_events_consumed_total", stats.events.Load())
-		writeCounter(w, "loom_invalid_events_total", stats.invalidEvents.Load())
-		writeCounter(w, "loom_runs_started_total", stats.runsStarted.Load())
-		writeCounter(w, "loom_runs_completed_total", stats.runsCompleted.Load())
-		writeCounter(w, "loom_run_errors_total", stats.runErrors.Load())
-		writeCounter(w, "loom_agent_spawns_total", stats.agentSpawns.Load())
-		writeCounter(w, "loom_token_chunks_total", stats.tokenChunks.Load())
-		writeGauge(w, "loom_last_event_timestamp_milliseconds", stats.lastEventAt.Load())
-		writeGauge(w, "loom_stream_subscribers", events.subscriberCount())
-		writeCounter(w, "loom_slow_subscribers_dropped_total", events.droppedCount())
+		writeGauge(w, "hivegraph_consumer_up", boolValue(stats.consumerUp.Load()))
+		writeCounter(w, "hivegraph_events_consumed_total", stats.events.Load())
+		writeCounter(w, "hivegraph_invalid_events_total", stats.invalidEvents.Load())
+		writeCounter(w, "hivegraph_runs_started_total", stats.runsStarted.Load())
+		writeCounter(w, "hivegraph_runs_completed_total", stats.runsCompleted.Load())
+		writeCounter(w, "hivegraph_run_errors_total", stats.runErrors.Load())
+		writeCounter(w, "hivegraph_agent_spawns_total", stats.agentSpawns.Load())
+		writeCounter(w, "hivegraph_token_chunks_total", stats.tokenChunks.Load())
+		writeGauge(w, "hivegraph_last_event_timestamp_milliseconds", stats.lastEventAt.Load())
+		writeGauge(w, "hivegraph_stream_subscribers", events.subscriberCount())
+		writeCounter(w, "hivegraph_slow_subscribers_dropped_total", events.droppedCount())
 	})
 	return mux
 }
@@ -289,8 +289,8 @@ func loadConfig() (config, error) {
 	}
 	return config{
 		brokers:       brokers,
-		topic:         env("KAFKA_SWARM_EVENTS_TOPIC", "loom.swarm.events"),
-		groupID:       env("KAFKA_TELEMETRY_GROUP_ID", "loom-telemetry-v1"),
+		topic:         env("KAFKA_SWARM_EVENTS_TOPIC", "hivegraph.swarm.events"),
+		groupID:       env("KAFKA_TELEMETRY_GROUP_ID", "hivegraph-telemetry-v1"),
 		address:       ":" + port,
 		grpcAddress:   ":" + grpcPort,
 		wsOrigins:     splitNonEmpty(env("TELEMETRY_WS_ALLOWED_ORIGINS", "http://localhost:3000")),
@@ -305,7 +305,7 @@ func loadConfig() (config, error) {
 func kafkaOptions(cfg config) ([]kgo.Opt, error) {
 	options := []kgo.Opt{
 		kgo.SeedBrokers(cfg.brokers...),
-		kgo.ClientID("loom-go-telemetry"),
+		kgo.ClientID("hivegraph-go-telemetry"),
 		kgo.ConsumerGroup(cfg.groupID),
 		kgo.ConsumeTopics(cfg.topic),
 		kgo.DisableAutoCommit(),

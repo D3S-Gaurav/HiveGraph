@@ -1,4 +1,4 @@
-// Core domain + event types for the Loom agent swarm.
+// Core domain + event types for the HiveGraph agent swarm.
 
 export type AgentType =
   | "planner"

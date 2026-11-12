@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-07-18T16:59:45Z",
-  "title": "Design System: Loom",
+  "title": "Design System: HiveGraph",
   "extensions": {
     "colorMeta": {
       "canvas": {
@@ -154,7 +154,7 @@
   ],
   "narrative": {
     "northStar": "The Neon Relay Console",
-    "overview": "Loom feels like a focused operations instrument in a low-light workspace: quiet at rest, visibly alive when work is moving. Dark tonal layers keep dense orchestration legible; violet identifies intent and selection, while cyan behaves like a live signal traveling between agents. Glass is permitted only where it clarifies hierarchy or preserves spatial context. The product is precise, energetic, and technically credible.",
+    "overview": "HiveGraph feels like a focused operations instrument in a low-light workspace: quiet at rest, visibly alive when work is moving. Dark tonal layers keep dense orchestration legible; violet identifies intent and selection, while cyan behaves like a live signal traveling between agents. Glass is permitted only where it clarifies hierarchy or preserves spatial context. The product is precise, energetic, and technically credible.",
     "keyCharacteristics": [
       "Dense but calm product surfaces",
       "A single connected SVG icon language",
@@ -197,7 +197,7 @@
       "Do use neon to indicate action, computation, selection, or verified state."
     ],
     "donts": [
-      "Don't build generic hackathon dashboards or describe Loom as a hackathon entry.",
+      "Don't build generic hackathon dashboards or describe HiveGraph as a hackathon entry.",
       "Don't add decorative sci-fi chrome, illegible low-contrast glass, or neon effects without meaning.",
       "Don't use card grids that obscure the core workflow or nest cards inside cards.",
       "Don't make the interface require repository knowledge to understand the product.",

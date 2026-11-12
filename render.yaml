@@ -8,7 +8,7 @@
 # Apply with: Render Dashboard > New > Blueprint, pointed at this repository.
 services:
   - type: web
-    name: loom-telemetry
+    name: hivegraph-telemetry
     runtime: docker
     rootDir: services/telemetry
     dockerfilePath: ./Dockerfile
@@ -39,9 +39,9 @@ services:
       - key: KAFKA_BROKERS
         sync: false
       - key: KAFKA_SWARM_EVENTS_TOPIC
-        value: loom.swarm.events
+        value: hivegraph.swarm.events
       - key: KAFKA_TELEMETRY_GROUP_ID
-        value: loom-telemetry-v1
+        value: hivegraph-telemetry-v1
       - key: KAFKA_SSL
         value: "1"
       - key: KAFKA_SASL_MECHANISM

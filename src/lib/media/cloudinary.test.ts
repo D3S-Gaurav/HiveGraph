@@ -35,7 +35,7 @@ describe("Cloudinary swarm image storage", () => {
     vi.stubEnv("CLOUDINARY_API_SECRET", "secret");
     upload.mockResolvedValue({
       asset_id: "asset",
-      public_id: "loom/run-context/hash/run/id",
+      public_id: "hivegraph/run-context/hash/run/id",
       version: 1,
       format: "png",
       bytes: 128,
@@ -51,7 +51,7 @@ describe("Cloudinary swarm image storage", () => {
       expect.objectContaining({
         resource_type: "image",
         type: "authenticated",
-        folder: expect.stringMatching(/^loom\/run-context\/[a-f0-9]{16}\/run$/),
+        folder: expect.stringMatching(/^hivegraph\/run-context\/[a-f0-9]{16}\/run$/),
         overwrite: false,
       }),
     );
