@@ -13,11 +13,17 @@ async function migrate() {
       create table if not exists mcp_access_token (
         user_id text primary key references "user" (id) on delete cascade,
         token_hash char(64) not null unique check (token_hash ~ '^[0-9a-f]{64}$'),
-        token_prefix varchar(17) not null,
+        token_prefix varchar(32) not null,
         created_at timestamptz not null default now(),
         last_used_at timestamptz,
         revoked_at timestamptz
       );
+    `);
+    // The display prefix is the token label plus six characters. The column was sized for
+    // an earlier, shorter label, so databases created before the rename are widened here.
+    // Widening a varchar is a metadata-only change and is safe to repeat.
+    await database.query(`
+      alter table mcp_access_token alter column token_prefix type varchar(32);
     `);
     console.log("MCP access-token migration is up to date.");
   } finally {
